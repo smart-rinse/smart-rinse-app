@@ -8,4 +8,15 @@
     <string name="chat">Chat</string>
     <string name="account">Account</string>
     <string name="camera_button">Camera Button</string>
+
+    <!-- Login - Register -->
+    <string name="sr_logo_text">Logo Smart Rinse Text</string>
+    <string name="login_account">Login Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">L O G I N</string>
+    <string name="not_account">Don\'t have an account?</string>
+    <string name="register">Register</string>
+    <string name="or">- or -</string>
+    <string name="login_google">Sign in with Google</string>
 </resources>

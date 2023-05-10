@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_camera"
         app:layout_anchor="@id/bottomAppBar"
-        android:backgroundTint="@color/main_green"
+        android:backgroundTint="@color/sr_main_green"
         app:tint="@color/white"
         android:contentDescription="@string/camera_button" />
 

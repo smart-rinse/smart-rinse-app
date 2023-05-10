@@ -5,7 +5,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="main_light_green">#00CC61</color>
-    <color name="main_green">#0FA958</color>
-    <color name="main_dark_green">#009949</color>
+    <color name="sr_main_light_green">#00CC61</color>
+    <color name="sr_start_main_green">#11CB69</color>
+    <color name="sr_main_green">#0FA958</color>
+    <color name="sr_main_dark_green">#009949</color>
+    <color name="sr_main_black">#11151C</color>
+    <color name="sr_main_gray">#666666</color>
+
+    <!-- Google Icon Color -->
+    <color name="sr_google_red">#E43E2B</color>
+    <color name="sr_google_yellow">#F0B501</color>
+    <color name="sr_google_green">#2BA24C</color>
+    <color name="sr_google_blue">#3B7DED</color>
 </resources>

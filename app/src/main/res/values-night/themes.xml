@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.SmartRinse" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/main_light_green</item>
-        <item name="colorPrimaryVariant">@color/main_dark_green</item>
+        <item name="colorPrimary">@color/sr_main_light_green</item>
+        <item name="colorPrimaryVariant">@color/sr_main_dark_green</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
