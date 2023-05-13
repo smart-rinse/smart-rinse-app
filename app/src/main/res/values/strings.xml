@@ -19,4 +19,8 @@
     <string name="register">Register</string>
     <string name="or">- or -</string>
     <string name="login_google">Sign in with Google</string>
+    <string name="register_account">Register Account</string>
+    <string name="full_name">Full Name</string>
+    <string name="register_google">Sign up with Google</string>
+    <string name="have_account">Do you have an account?</string>
 </resources>
