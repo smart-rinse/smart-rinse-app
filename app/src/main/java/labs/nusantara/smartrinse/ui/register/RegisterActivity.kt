@@ -80,7 +80,7 @@ class RegisterActivity : AppCompatActivity(), OnClickListener {
 
         // Action Register Done
         registerViewModel.registerResponse.observe(this@RegisterActivity) { response ->
-            if (response.msg == "User Created") {
+            if (response.success) {
                 startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                 finish()
             }

@@ -6,7 +6,7 @@
     <string name="home">Home</string>
     <string name="article">Article</string>
     <string name="chat">Chat</string>
-    <string name="account">Account</string>
+    <string name="setting">Setting</string>
     <string name="camera_button">Camera Button</string>
 
     <!-- Login - Register -->
@@ -28,4 +28,15 @@
     <string name="aturan_password">Masukan password dengan benar</string>
     <string name="aturan_confpassword">Masukan konfirmasi password dengan benar</string>
     <string name="aturan_nama">Masukan nama lengkap anda</string>
+
+    <!-- Settings -->
+    <string name="versi_aplikasi">Versi Aplikasi</string>
+    <string name="laporan_usaha">Laporan Usaha</string>
+    <string name="keuangan">Keuangan</string>
+    <string name="buka_laundry">Buka Laundry</string>
+    <string name="lorem_ipsum">Lorem Ipsum Dolor</string>
+    <string name="hello">Hello</string>
+    <string name="item_list">Item List</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

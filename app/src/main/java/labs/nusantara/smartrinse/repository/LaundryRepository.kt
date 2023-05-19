@@ -42,12 +42,12 @@ class LaundryRepository private constructor (
                 _isLoading.value = false
                 if (response.isSuccessful && response.body() != null) {
                     _regResponse.value = response.body()
-                    _toastText.value = Event(response.body()?.msg.toString())
+                    _toastText.value = Event(response.body()?.message.toString())
                 } else {
                     _toastText.value = Event(response.message().toString())
                     Log.e(
                         TAG,
-                        "ErrorMessage: ${response.message()}, ${response.body()?.msg.toString()}"
+                        "ErrorMessage: ${response.message()}, ${response.body()?.message.toString()}"
                     )
                 }
             }

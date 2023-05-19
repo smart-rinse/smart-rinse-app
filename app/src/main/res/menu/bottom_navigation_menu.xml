@@ -16,8 +16,8 @@
         android:title="@string/chat"
         android:icon="@drawable/ic_chat" />
 
-    <item android:id="@+id/navAccount"
-        android:title="@string/account"
-        android:icon="@drawable/ic_account" />
+    <item android:id="@+id/navSetting"
+        android:title="@string/setting"
+        android:icon="@drawable/ic_setting" />
 
 </menu>

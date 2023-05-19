@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
 
         loginViewModel.login()
         loginViewModel.loginResponse.observe(this@LoginActivity) { response ->
-            if (response.message == "success") {
+            if (response.success) {
                 val token = response.data.accessToken
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 intent.putExtra("extra_token", token)
