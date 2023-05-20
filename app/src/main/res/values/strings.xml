@@ -39,4 +39,9 @@
     <string name="item_list">Item List</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="password_lama">Password Lama</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="password_baru">Password Baru</string>
+    <string name="password_konfirmasi">Konfirmasi Password</string>
+    <string name="simpan">Simpan</string>
 </resources>

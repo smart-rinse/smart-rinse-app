@@ -1,19 +1,32 @@
 package labs.nusantara.smartrinse.ui.setting
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.ActivitySettingBinding
+import labs.nusantara.smartrinse.databinding.PopupPasswordBinding
 import labs.nusantara.smartrinse.ui.home.HomeActivity
+import labs.nusantara.smartrinse.ui.login.LoginActivity
+import labs.nusantara.smartrinse.utils.ViewModelFactory
 
 class SettingActivity : AppCompatActivity(), OnItemClickListener {
 
     private lateinit var binding: ActivitySettingBinding
+    private lateinit var bindingPopup: PopupPasswordBinding
+    private lateinit var factory: ViewModelFactory
+    private val settingViewModel: SettingViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +38,8 @@ class SettingActivity : AppCompatActivity(), OnItemClickListener {
             setDisplayShowTitleEnabled(false)
             setDisplayHomeAsUpEnabled(true)
         }
+
+        factory = ViewModelFactory.getInstance(this)
 
         showListSetting()
     }
@@ -43,8 +58,7 @@ class SettingActivity : AppCompatActivity(), OnItemClickListener {
     override fun onItemClick(adapterView: AdapterView<*>?, view: View?, position: Int, l: Long) {
         when (position) {
             0 -> {
-                val selectedText = adapterView?.getItemAtPosition(position)
-                Toast.makeText(this, "Pilihanmu: $selectedText", Toast.LENGTH_LONG).show()
+                changePassword()
             }
             1 -> {
                 startActivity(Intent(this, HomeActivity::class.java).putExtra("item", "FAQ"))
@@ -57,6 +71,33 @@ class SettingActivity : AppCompatActivity(), OnItemClickListener {
             }
         }
     }
+
+    private fun changePassword() {
+        bindingPopup = PopupPasswordBinding.inflate(layoutInflater)
+
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.popup_password)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setGravity(Gravity.BOTTOM)
+        dialog.window?.attributes?.windowAnimations = R.style.PopupAnimation
+
+        val buttonSave = bindingPopup.buttonSave
+        val editTextOldPassword = bindingPopup.edtPasswordLama
+        val editTextNewPassword = bindingPopup.edtPasswordBaru
+
+        buttonSave.setOnClickListener {
+            Toast.makeText(this, "Password berubah daro ${editTextOldPassword}, menjadi ${editTextNewPassword}.", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
 
     private fun infoApplication() {
         val versionName: String = packageManager.getPackageInfo(packageName, 0).versionName
@@ -80,14 +121,22 @@ class SettingActivity : AppCompatActivity(), OnItemClickListener {
         builder.setTitle("Konfirmasi Logout")
             .setMessage("Apakah Anda yakin ingin logout?")
             .setPositiveButton("Ya") { dialog, _ ->
-                Toast.makeText(this, "Logout berhasil", Toast.LENGTH_SHORT).show()
+                settingViewModel.logout()
                 dialog.dismiss()
+                redirectToLoginActivity()
             }
             .setNegativeButton("Tidak") { dialog, _ ->
                 dialog.dismiss()
             }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun redirectToLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
