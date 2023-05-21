@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.ActivityHomeBinding
+import labs.nusantara.smartrinse.ui.article.ArticleActivity
 import labs.nusantara.smartrinse.ui.setting.SettingActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -18,22 +19,28 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
-        binding.bottomNavigationView.background = null
-        binding.bottomNavigationView.menu.getItem(2).isEnabled = false
-
-        processClickNavigation()
+        setupSelectedNavigation()
+        setupBottomNavigation()
     }
 
-    private fun processClickNavigation() {
+    private fun setupSelectedNavigation() {
+        binding.bottomNavigationView.selectedItemId = R.id.navHome
+    }
+
+    private fun setupBottomNavigation() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.navHome -> {
-                    Toast.makeText(this, "Homepage", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.navArticle -> {
-                    Toast.makeText(this, "Article", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ArticleActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+                R.id.navCamera -> {
+                    Toast.makeText(this, "Camera", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.navChat -> {
@@ -42,10 +49,6 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.navSetting -> {
                     startActivity(Intent(this, SettingActivity::class.java))
-                    true
-                }
-                R.id.navCamera -> {
-                    Toast.makeText(this, "Camera", Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> false

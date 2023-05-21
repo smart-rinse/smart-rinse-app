@@ -1,11 +1,10 @@
 package labs.nusantara.smartrinse.services.api
 
+import labs.nusantara.smartrinse.services.response.ArticleResponse
 import labs.nusantara.smartrinse.services.response.LoginResponse
 import labs.nusantara.smartrinse.services.response.RegisterResponse
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface APIService {
     @FormUrlEncoded
@@ -24,4 +23,8 @@ interface APIService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
+    @GET("article")
+    fun getArticle(
+        @Header("Authorization") token: String
+    ): Call<ArticleResponse>
 }

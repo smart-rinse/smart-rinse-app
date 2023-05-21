@@ -9,8 +9,10 @@
         android:title="@string/article"
         android:icon="@drawable/ic_article" />
 
-    <item android:id="@+id/placeholder"
-        android:title="" />
+    <item
+        android:id="@+id/navCamera"
+        android:title="@string/camera"
+        android:icon="@drawable/ic_camera"/>
 
     <item android:id="@+id/navChat"
         android:title="@string/chat"

@@ -7,7 +7,7 @@
     <string name="article">Article</string>
     <string name="chat">Chat</string>
     <string name="setting">Setting</string>
-    <string name="camera_button">Camera Button</string>
+    <string name="camera">Camera</string>
 
     <!-- Login - Register -->
     <string name="sr_logo_text">Logo Smart Rinse Text</string>
@@ -44,4 +44,8 @@
     <string name="password_baru">Password Baru</string>
     <string name="password_konfirmasi">Konfirmasi Password</string>
     <string name="simpan">Simpan</string>
+    <string name="coba_lagi">Coba Lagi</string>
+    <string name="judul_article">Judul Article</string>
+    <string name="deskripsi_article">Deskripsi Article</string>
+    <string name="thumbnail_article">Thumbnail Article</string>
 </resources>
