@@ -37,16 +37,16 @@ class RegisterActivity : AppCompatActivity(), OnClickListener {
             btnRegister.setOnClickListener {
                 if(edtPassword.text.toString() == edtConfpassword.text.toString()) {
                     if(edtName.length() == 0){
-                        edtName.error = getString(R.string.aturan_nama)
+                        edtName.error = getString(R.string.rule_nama)
                     }else if(edtEmail.length() == 0 || !binding.edtEmail.error.isNullOrEmpty()){
-                        edtEmail.error = getString(R.string.aturan_email)
+                        edtEmail.error = getString(R.string.rule_email)
                     }else if(edtPassword.length() == 0 || !binding.edtPassword.error.isNullOrEmpty()){
-                        edtPassword.error = getString(R.string.aturan_password)
+                        edtPassword.error = getString(R.string.rule_password)
                     }else{
                         prosesRegister()
                     }
                 }else {
-                    edtConfpassword.error = getString(R.string.aturan_confpassword)
+                    edtConfpassword.error = getString(R.string.rule_confpassword)
                 }
 
             }

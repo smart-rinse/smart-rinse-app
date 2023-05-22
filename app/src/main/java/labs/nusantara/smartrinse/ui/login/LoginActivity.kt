@@ -16,7 +16,7 @@ import labs.nusantara.smartrinse.utils.ViewModelFactory
 
 class LoginActivity : AppCompatActivity(), OnClickListener {
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var factory: ViewModelFactory
     private val loginViewModel: LoginViewModel by viewModels { factory }
 
@@ -38,10 +38,10 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         binding.apply {
             btnLogin.setOnClickListener {
                 if (edtEmail.length() == 0 || !binding.edtEmail.error.isNullOrEmpty()) {
-                    edtEmail.error = getString(R.string.aturan_email)
-                }else if(edtPassword.length() == 0 || !binding.edtPassword.error.isNullOrEmpty()) {
-                    edtPassword.error = getString(R.string.aturan_password)
-                }else {
+                    edtEmail.error = getString(R.string.rule_email)
+                } else if (edtPassword.length() == 0 || !binding.edtPassword.error.isNullOrEmpty()) {
+                    edtPassword.error = getString(R.string.rule_password)
+                } else {
                     prosesLogin()
                 }
             }
@@ -73,30 +73,32 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
 
         // Get Session Token
         loginViewModel.loginResponse.observe(this@LoginActivity) { response ->
-            saveSession(
-                SessionModel(
-                    response.data.email,
-                    response.data.name,
-                    AUTH_KEY +(response.data.accessToken),
-                    true
-                )
-            )
-        }
-
-        loginViewModel.login()
-        loginViewModel.loginResponse.observe(this@LoginActivity) { response ->
             if (response.success) {
+                saveSession(
+                    SessionModel(
+                        response.data.userId,
+                        response.data.email,
+                        response.data.name,
+                        AUTH_KEY + (response.data.accessToken),
+                        true
+                    )
+                )
+
+                loginViewModel.login()
+
                 val token = response.data.accessToken
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 intent.putExtra("extra_token", token)
                 startActivity(intent)
                 finish()
+            } else {
+                Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onClick(v: View) {
-        when(v.id) {
+        when (v.id) {
             binding.labelRegister.id -> {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
@@ -105,7 +107,7 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun saveSession(session: SessionModel){
+    private fun saveSession(session: SessionModel) {
         loginViewModel.saveSession(session)
     }
 
