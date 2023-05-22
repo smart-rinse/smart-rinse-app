@@ -20,7 +20,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@color/white"
-            android:contentDescription="@string/thumbnail_article"
+            android:contentDescription="@string/article_thumbnail"
             android:scaleType="fitXY"
             android:src="@drawable/default_image"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,11 +34,41 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/judul_article"
+            android:text="@string/article_title"
             android:textSize="@dimen/text_size_14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_article"
             app:layout_constraintTop_toTopOf="@+id/iv_article" />
+
+        <TextView
+            android:id="@+id/tv_auth_article"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLines="2"
+            android:text="@string/article_author"
+            android:textSize="@dimen/text_size_8sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@+id/iv_article"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_article" />
+
+        <TextView
+            android:id="@+id/tv_date_article"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLines="2"
+            android:text="@string/article_date"
+            android:textSize="@dimen/text_size_8sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_auth_article"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_article" />
 
         <TextView
             android:id="@+id/tv_desc_article"
@@ -49,11 +79,11 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="2"
-            android:text="@string/deskripsi_article"
+            android:text="@string/article_description"
             android:textSize="@dimen/text_size_10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_article"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_article" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_date_article" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

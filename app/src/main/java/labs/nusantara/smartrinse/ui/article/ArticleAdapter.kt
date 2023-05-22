@@ -22,6 +22,8 @@ class ArticleAdapter (private val listDataStory: List<ArticleItem>) :
         fun bind(data: ArticleItem) {
             userBinding.apply {
                 tvTitleArticle.text = data.title
+                tvAuthArticle.text = data.author
+                tvDateArticle.text = data.date
                 tvDescArticle.text = data.sinopsis
 
                 itemView.setOnClickListener {
