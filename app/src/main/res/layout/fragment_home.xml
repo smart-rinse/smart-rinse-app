@@ -6,6 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <ImageView
+        android:id="@+id/iv_logoapp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/app_name_green"
+        tools:src="@tools:sample/avatars" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:autofillHints="username"
+        android:background="@drawable/background_search"
+        android:iconifiedByDefault="false"
+        android:inputType="text"
+        android:layoutDirection="ltr"
+        android:maxLines="1"
+        android:queryBackground="@android:color/transparent"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logoapp"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Search Laundry" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -17,5 +48,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

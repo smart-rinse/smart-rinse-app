@@ -31,27 +31,29 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/txt_sayhello"
+            android:id="@+id/txt_accountname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/poppins_light"
-            android:text="@string/hello"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/lorem_ipsum"
             android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_profilePicture"
             app:layout_constraintStart_toEndOf="@+id/img_profilePicture"
             app:layout_constraintTop_toTopOf="@+id/img_profilePicture" />
 
         <TextView
-            android:id="@+id/txt_accountname"
+            android:id="@+id/txt_accountemail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/poppins_light"
             android:text="@string/lorem_ipsum"
             android:textColor="@color/white"
+            android:textSize="@dimen/text_size_10sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_profilePicture"
             app:layout_constraintStart_toEndOf="@+id/img_profilePicture"
             app:layout_constraintTop_toTopOf="@+id/img_profilePicture" />
@@ -60,12 +62,22 @@
             android:id="@+id/imageView2"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/edit_profile"
             android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toBottomOf="@+id/txt_accountname"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_sayhello" />
+            app:layout_constraintTop_toTopOf="@+id/txt_accountemail" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_accountname"
+            app:layout_constraintEnd_toEndOf="@+id/txt_accountemail"
+            app:layout_constraintStart_toStartOf="@+id/txt_accountemail"
+            app:layout_constraintTop_toTopOf="@+id/txt_accountemail" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -77,7 +89,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_profilePicture"
             app:layout_constraintVertical_bias="1.0"
-            tools:layout_editor_absoluteX="83dp">
+            tools:layout_editor_absoluteX="0dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView1"

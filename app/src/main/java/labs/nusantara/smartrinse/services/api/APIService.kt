@@ -1,8 +1,6 @@
 package labs.nusantara.smartrinse.services.api
 
-import labs.nusantara.smartrinse.services.response.ArticleResponse
-import labs.nusantara.smartrinse.services.response.LoginResponse
-import labs.nusantara.smartrinse.services.response.RegisterResponse
+import labs.nusantara.smartrinse.services.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -27,4 +25,20 @@ interface APIService {
     fun getArticle(
         @Header("Authorization") token: String
     ): Call<ArticleResponse>
+
+    @GET("users/{userId}")
+    fun getUserDetail(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): Call<UserDetailResponse>
+
+    @FormUrlEncoded
+    @PUT("editPassword/{userId}")
+    fun putUser(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+        @Field("currentPassword") oldPassword: String,
+        @Field("newPassword") newPassword: String,
+        @Field("confirmPassword") confirmPassword: String
+    ): Call<UserPasswordResponse>
 }

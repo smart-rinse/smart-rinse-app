@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -28,11 +29,10 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var bindingPopup: PopupPasswordBinding
     private lateinit var factory: ViewModelFactory
     private val settingViewModel: SettingViewModel by viewModels { factory }
-//    private lateinit var sessionPreferences: SessionPreferences by preferencesDataStore()
-//    private lateinit var dataStore: DataStore<Preferences>
+    private var token: String? = null
+    private var userId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,19 +57,35 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
 
         showListSetting()
 
-//        sessionPreferences = SessionPreferences.getInstance()
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            sessionPreferences.getSession().collect { sessionModel ->
-//                val idKey = sessionModel.userId
-//                Log.d("ID_KEY:", idKey)
-//            }
-//        }
+        loadDataUser()
+    }
 
+    private fun loadDataUser() {
+        settingViewModel.getSession().observe(viewLifecycleOwner) { session ->
+            token = session.token
+            userId = session.userId
+            val tokenAuth = session.token
+            val userID = session.userId
+            if (!session.isLogin) {
+                Log.d("Error: ", "Error fetching data")
+            } else {
+                settingViewModel.getDataUser(tokenAuth, userID)
+            }
+        }
+        settingViewModel.isLoading.observe(viewLifecycleOwner) { load ->
+            showLoading(load)
+        }
+        settingViewModel.listDataUser.observe(viewLifecycleOwner) { listData ->
+            val userData = listData.firstOrNull()
+            if (userData != null) {
+                binding.txtAccountemail.text = userData.email
+                binding.txtAccountname.text = userData.name
+            }
+        }
     }
 
     private fun showListSetting() {
-        val items = arrayOf("Ganti password", "FAQ", "Tentang Aplikasi", "Logout")
+        val items = arrayOf("Change Password", "FAQ", "About Application", "Logout")
         val adapter = ArrayAdapter(requireContext(), R.layout.item_setting, R.id.text_item, items)
         binding.listView.adapter = adapter
         binding.listView.onItemClickListener = this
@@ -79,6 +95,7 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
         when (position) {
             0 -> {
                 changePassword()
+                token?.let { Log.d("Token : ", it) }
             }
             1 -> {
                 startActivity(
@@ -98,11 +115,10 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     private fun changePassword() {
-        bindingPopup = PopupPasswordBinding.inflate(layoutInflater)
-
+        val bindingPopup = PopupPasswordBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.popup_password)
+        dialog.setContentView(bindingPopup.root)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -112,15 +128,40 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
         dialog.window?.attributes?.windowAnimations = R.style.PopupAnimation
 
         val buttonSave = bindingPopup.buttonSave
-        val editTextOldPassword = bindingPopup.edtPasswordLama
-        val editTextNewPassword = bindingPopup.edtPasswordBaru
 
         buttonSave.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Password berubah dari $editTextOldPassword menjadi $editTextNewPassword.",
-                Toast.LENGTH_SHORT
-            ).show()
+            val cekToken = token.toString()
+            val oldPassword = bindingPopup.edtPasswordLama.text.toString()
+            val newPassword = bindingPopup.edtPasswordBaru.text.toString()
+            val confirmPassword = bindingPopup.edtPasswordBaruKonfirmasi.text.toString()
+
+            // Show Loading Bar
+            settingViewModel.isLoading.observe(this@SettingFragment) {
+                bindingPopup.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+            }
+
+            // Send Data to Model
+            bindingPopup.apply {
+                userId?.let { userId ->
+                    settingViewModel.putUser(
+                        cekToken,
+                        userId,
+                        oldPassword,
+                        newPassword,
+                        confirmPassword
+                    )
+                }
+            }
+
+            // Get Notification Change Password
+            settingViewModel.toastText.observe(this@SettingFragment) {
+                it.getContentIfNotHandled()?.let { toastText ->
+                    Toast.makeText(
+                        requireContext(), toastText, Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
             dialog.dismiss()
         }
 
@@ -169,6 +210,13 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
             Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         requireActivity().finish()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        when (isLoading) {
+            true -> binding.progressBar.visibility = View.VISIBLE
+            false -> binding.progressBar.visibility = View.GONE
+        }
     }
 
     override fun onDestroyView() {

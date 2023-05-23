@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import labs.nusantara.smartrinse.services.api.APIService
-import labs.nusantara.smartrinse.services.response.ArticleItem
-import labs.nusantara.smartrinse.services.response.ArticleResponse
-import labs.nusantara.smartrinse.services.response.LoginResponse
-import labs.nusantara.smartrinse.services.response.RegisterResponse
+import labs.nusantara.smartrinse.services.response.*
 import labs.nusantara.smartrinse.utils.Event
 import labs.nusantara.smartrinse.utils.SessionModel
 import labs.nusantara.smartrinse.utils.SessionPreferences
@@ -35,6 +32,11 @@ class LaundryRepository private constructor (
 
     private val _listArticleItem = MutableLiveData<List<ArticleItem>>()
     val listArticleItem: LiveData<List<ArticleItem>> = _listArticleItem
+
+    private val _listUserItem = MutableLiveData<List<User>>()
+    val listUserItem: LiveData<List<User>> = _listUserItem
+
+    private val _changePasswordResponse = MutableLiveData<UserPasswordResponse>()
 
 
     fun postRegister(name: String, email: String, password: String, confPassword: String) {
@@ -122,6 +124,66 @@ class LaundryRepository private constructor (
             override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
                 _isLoading.value = false
                 _toastText.value = Event("No internet connection")
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getUserDetail(token: String, USER_ID: String) {
+        _isLoading.value = true
+        val client = apiService.getUserDetail(token, USER_ID)
+        client.enqueue(object : Callback<UserDetailResponse> {
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<UserDetailResponse>,
+                response: Response<UserDetailResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val userDetail = response.body()?.user
+                    if (userDetail != null) {
+                        _listUserItem.value = listOf(userDetail)
+                    } else {
+                        _toastText.value = Event("User data not found")
+                    }
+                } else {
+                    _isLoading.value = false
+                    Log.e("MainViewModel", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserDetailResponse>, t: Throwable) {
+                Log.e("MainViewModel", "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun putUser(token: String, userId: String, oldPassword: String, newPassword: String, confirmPassword: String) {
+        _isLoading.value = true
+        Log.d("Change: ", "Token: $token, Old Password: $oldPassword, New Password: $newPassword, Confirm Pass: $confirmPassword")
+        val client = apiService.putUser(token, userId, oldPassword, newPassword, confirmPassword)
+
+        client.enqueue(object : Callback<UserPasswordResponse> {
+            override fun onResponse(
+                call: Call<UserPasswordResponse>,
+                response: Response<UserPasswordResponse>
+            ) {
+                _isLoading.value = false
+                Log.d("ResponseChange : ",  response.body().toString())
+                if (response.isSuccessful && response.body() != null) {
+                    _changePasswordResponse.value = response.body()
+                    _toastText.value = Event(response.body()?.message.toString())
+                } else {
+                    _toastText.value = Event(response.message().toString())
+                    Log.e(
+                        TAG,
+                        "ErrorMessage: ${response.body()}, ${response.body()?.message.toString()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<UserPasswordResponse>, t: Throwable) {
+                _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
             }
         })

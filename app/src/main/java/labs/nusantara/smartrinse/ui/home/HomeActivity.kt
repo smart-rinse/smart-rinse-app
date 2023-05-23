@@ -31,7 +31,9 @@ class HomeActivity : AppCompatActivity() {
                 R.id.navChat -> {
                     Toast.makeText(this, "Feature Coming Soon", Toast.LENGTH_SHORT).show()
                 }
-                R.id.navSetting -> replaceFragment(SettingFragment())
+                R.id.navSetting -> {
+                    replaceFragment(SettingFragment())
+                }
                 else -> {
 
                 }

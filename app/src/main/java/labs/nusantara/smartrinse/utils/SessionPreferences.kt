@@ -41,9 +41,9 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
         }
     }
 
-//    fun getIdKey(): Preferences.Key<String> {
-//        return ID_KEY
-//    }
+    fun getSessionToken(): Preferences.Key<String> {
+        return TOKEN_KEY
+    }
 
     companion object {
         @Volatile
