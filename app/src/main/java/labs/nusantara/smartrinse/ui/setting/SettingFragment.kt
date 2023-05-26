@@ -15,13 +15,16 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import labs.nusantara.smartrinse.BuildConfig
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.FragmentSettingBinding
 import labs.nusantara.smartrinse.databinding.PopupPasswordBinding
-import labs.nusantara.smartrinse.ui.home.HomeActivity
+import labs.nusantara.smartrinse.MainActivity
 import labs.nusantara.smartrinse.ui.login.LoginActivity
+import labs.nusantara.smartrinse.ui.setting.user.UserActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
 
 class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
@@ -33,6 +36,9 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
     private val settingViewModel: SettingViewModel by viewModels { factory }
     private var token: String? = null
     private var userId: String? = null
+
+    private lateinit var cardBusiness: CardView
+    private lateinit var imgEditProfile: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +64,21 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
         showListSetting()
 
         loadDataUser()
+
+        cardBusiness = binding.cardVIewBusiness
+        cardBusiness.setOnClickListener {
+            Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_LONG).show()
+        }
+
+        imgEditProfile = binding.imageEditProfile
+        imgEditProfile.setOnClickListener {
+            startActivity(
+                Intent(requireContext(), UserActivity::class.java).putExtra(
+                    "item",
+                    "FAQ"
+                )
+            )
+        }
     }
 
     private fun loadDataUser() {
@@ -95,11 +116,10 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
         when (position) {
             0 -> {
                 changePassword()
-                token?.let { Log.d("Token : ", it) }
             }
             1 -> {
                 startActivity(
-                    Intent(requireContext(), HomeActivity::class.java).putExtra(
+                    Intent(requireContext(), MainActivity::class.java).putExtra(
                         "item",
                         "FAQ"
                     )
@@ -169,18 +189,10 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     private fun infoApplication() {
-        val versionName: String =
-            requireContext().packageManager.getPackageInfo(
-                requireContext().packageName,
-                0
-            ).versionName
+        val versionName: String = BuildConfig.VERSION_NAME
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Informasi Aplikasi")
-            .setMessage(
-                "Versi Aplikasi: $versionName\n\n" +
-                        "Aplikasi Smart Rinse dirancang untuk memudahkan Anda dalam menentukan tempat laundry terbaik dengan teknologi machine learning.\n\n" +
-                        "Terima kasih telah menggunakan Aplikasi ini.\n"
-            )
+        builder.setTitle(getString(R.string.title_version))
+            .setMessage(getString(R.string.dialog_version, versionName))
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
@@ -190,14 +202,14 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
 
     private fun logoutConfirmation() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Konfirmasi Logout")
-            .setMessage("Apakah Anda yakin ingin logout?")
-            .setPositiveButton("Ya") { dialog, _ ->
+        builder.setTitle(getString(R.string.title_confirm_logout))
+            .setMessage(getString(R.string.desc_confirm_logout))
+            .setPositiveButton("Yes") { dialog, _ ->
                 settingViewModel.logout()
                 dialog.dismiss()
                 redirectToLoginActivity()
             }
-            .setNegativeButton("Tidak") { dialog, _ ->
+            .setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()
             }
         val dialog = builder.create()

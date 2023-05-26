@@ -50,4 +50,18 @@
     <string name="article_thumbnail">Article Thumbnail</string>
     <string name="article_date">Article Date</string>
     <string name="article_author">Article Author</string>
+
+    <string name="title_version">Application Information</string>
+    <string name="dialog_version">App Version: %1$s\n\nThe Smart Rinse App is designed to make it easier for you to determine the best laundry place with machine learning technology.\n\nThank you for using this App.\n</string>
+    <string name="title_confirm_logout">Logout Confirmation</string>
+    <string name="desc_confirm_logout">Are you sure you want to log out?</string>
+    <string name="phone">Phone</string>
+    <string name="city">City</string>
+
+    <!-- Home -->
+    <string name="laundry_available">Available Laundry</string>
+    <string name="laundry_thumbnail">Laundry Thumbnail</string>
+    <string name="laundry_name">Laundry Name</string>
+    <string name="laundry_city">Laundry City</string>
+    <string name="laundry_time">Laundry Time</string>
 </resources>

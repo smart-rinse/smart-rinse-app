@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.ActivityLoginBinding
-import labs.nusantara.smartrinse.ui.home.HomeActivity
+import labs.nusantara.smartrinse.MainActivity
 import labs.nusantara.smartrinse.ui.register.RegisterActivity
 import labs.nusantara.smartrinse.utils.SessionModel
 import labs.nusantara.smartrinse.utils.ViewModelFactory
@@ -85,9 +85,8 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
                 )
 
                 loginViewModel.login()
-
                 val token = response.data.accessToken
-                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 intent.putExtra("extra_token", token)
                 startActivity(intent)
                 finish()

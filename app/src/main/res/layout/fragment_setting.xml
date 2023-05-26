@@ -18,13 +18,14 @@
 
         <ImageView
             android:id="@+id/img_profilePicture"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/profile_picture"
             android:src="@drawable/default_image"
+            android:background="@drawable/background_circle"
             app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,15 +60,15 @@
             app:layout_constraintTop_toTopOf="@+id/img_profilePicture" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/image_edit_profile"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/edit_profile"
             android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_accountname"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_accountemail"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_accountemail" />
+            app:layout_constraintTop_toTopOf="@+id/txt_accountname" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -92,13 +93,13 @@
             tools:layout_editor_absoluteX="0dp">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView1"
+                android:id="@+id/cardVIewBusiness"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/size_8dp"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/cardView2"
+                app:layout_constraintEnd_toStartOf="@+id/cardViewFinance"
                 app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
@@ -125,14 +126,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
+                android:id="@+id/cardViewFinance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/size_8dp"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/cardView3"
-                app:layout_constraintStart_toEndOf="@+id/cardView1">
+                app:layout_constraintEnd_toStartOf="@+id/cardViewReport"
+                app:layout_constraintStart_toEndOf="@+id/cardVIewBusiness">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,14 +159,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
+                android:id="@+id/cardViewReport"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/size_8dp"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardView2">
+                app:layout_constraintStart_toEndOf="@+id/cardViewFinance">
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import labs.nusantara.smartrinse.databinding.ActivitySplashBinding
-import labs.nusantara.smartrinse.ui.home.HomeActivity
 import labs.nusantara.smartrinse.ui.home.HomeViewModel
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
@@ -50,7 +49,7 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
     private fun gotoHome() {
-        startActivity(Intent(this, HomeActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 }

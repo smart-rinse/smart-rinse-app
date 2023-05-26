@@ -33,6 +33,9 @@ class LaundryRepository private constructor (
     private val _listArticleItem = MutableLiveData<List<ArticleItem>>()
     val listArticleItem: LiveData<List<ArticleItem>> = _listArticleItem
 
+    private val _listLaundryItem = MutableLiveData<List<LaundryItem>>()
+    val listLaundryItem: LiveData<List<LaundryItem>> = _listLaundryItem
+
     private val _listUserItem = MutableLiveData<List<User>>()
     val listUserItem: LiveData<List<User>> = _listUserItem
 
@@ -122,6 +125,38 @@ class LaundryRepository private constructor (
             }
 
             override fun onFailure(call: Call<ArticleResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = Event("No internet connection")
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getLaundrySimple(token: String) {
+        Log.d("RESPONSE:", token)
+        _isLoading.value = true
+        val client = apiService.getLaundry(token)
+        client.enqueue(object : Callback<LaundryResponse> {
+            @SuppressLint("NullSafeMutableLiveData")
+            override fun onResponse(
+                call: Call<LaundryResponse>,
+                response: Response<LaundryResponse>
+            ) {
+                _isLoading.value = false
+                val listData = response.body()?.laundry
+                if (response.isSuccessful) {
+                    if (listData.isNullOrEmpty()) {
+                        _toastText.value = Event("Laundry tidak ditemukan")
+                    } else {
+                        _listLaundryItem.value = listData
+                    }
+                } else {
+                    _toastText.value = Event(response.message())
+                    Log.e(TAG, "ErrorMessage: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LaundryResponse>, t: Throwable) {
                 _isLoading.value = false
                 _toastText.value = Event("No internet connection")
                 Log.e(TAG, "ErrorMessage: ${t.message.toString()}")

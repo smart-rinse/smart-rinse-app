@@ -17,7 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.ActivitySettingBinding
 import labs.nusantara.smartrinse.databinding.PopupPasswordBinding
-import labs.nusantara.smartrinse.ui.home.HomeActivity
+import labs.nusantara.smartrinse.MainActivity
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
 
@@ -61,7 +61,7 @@ class SettingActivity : AppCompatActivity(), OnItemClickListener {
                 changePassword()
             }
             1 -> {
-                startActivity(Intent(this, HomeActivity::class.java).putExtra("item", "FAQ"))
+                startActivity(Intent(this, MainActivity::class.java).putExtra("item", "FAQ"))
             }
             2 -> {
                 infoApplication()

@@ -1,15 +1,15 @@
-package labs.nusantara.smartrinse.ui.home
+package labs.nusantara.smartrinse
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.ActivityHomeBinding
 import labs.nusantara.smartrinse.ui.article.ArticleFragment
+import labs.nusantara.smartrinse.ui.home.HomeFragment
 import labs.nusantara.smartrinse.ui.setting.SettingFragment
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityHomeBinding
 

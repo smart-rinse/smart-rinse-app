@@ -30,13 +30,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.article.ArticleActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.setting.SettingActivity"
             android:exported="false">
             <meta-data
@@ -58,7 +51,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -17,7 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_URL", '"https://api-dot-submission-mgce-asep.et.r.appspot.com/"')
+        buildConfigField("String", "API_URL", '"https://api-smartrinse-test-fkkhrt32qa-uc.a.run.app/"')
 
     }
 
