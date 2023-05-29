@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_linear"
     tools:context=".SplashActivity">
 
     <ImageView
         android:id="@+id/img_splash"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/ic_sr_logo"
+        android:src="@drawable/ic_sr_logo_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
