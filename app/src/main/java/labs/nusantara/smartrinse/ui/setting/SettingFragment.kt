@@ -25,6 +25,7 @@ import labs.nusantara.smartrinse.databinding.PopupPasswordBinding
 import labs.nusantara.smartrinse.MainActivity
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.ui.setting.user.UserActivity
+import labs.nusantara.smartrinse.ui.setting.user.UserActivity.Companion.USER_ID
 import labs.nusantara.smartrinse.utils.ViewModelFactory
 
 class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
@@ -36,6 +37,14 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
     private val settingViewModel: SettingViewModel by viewModels { factory }
     private var token: String? = null
     private var userId: String? = null
+    private var gender: String? = null
+    private var city: String? = null
+    private var name: String? = null
+    private var photo: String? = null
+    private var telephone: String? = null
+    private var email: String? = null
+    private var isLaundry: Boolean = false
+
 
     private lateinit var cardBusiness: CardView
     private lateinit var imgEditProfile: ImageView
@@ -73,10 +82,15 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
         imgEditProfile = binding.imageEditProfile
         imgEditProfile.setOnClickListener {
             startActivity(
-                Intent(requireContext(), UserActivity::class.java).putExtra(
-                    "item",
-                    "FAQ"
-                )
+                Intent(requireContext(), UserActivity::class.java)
+                    .putExtra(USER_ID, userId)
+                    .putExtra("USER_GENDER", gender)
+                    .putExtra("USER_CITY", city)
+                    .putExtra("USER_NAME", name)
+                    .putExtra("USER_PHOTO", photo)
+                    .putExtra("USER_TELP", telephone)
+                    .putExtra("USER_EMAIL", email)
+                    .putExtra("USER_ISLAUNDRY", isLaundry)
             )
         }
     }
@@ -101,6 +115,13 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
             if (userData != null) {
                 binding.txtAccountemail.text = userData.email
                 binding.txtAccountname.text = userData.name
+                gender = userData.gender
+                city = userData.city
+                name = userData.name
+                photo = userData.photo
+                telephone = userData.telephone
+                email = userData.email
+                isLaundry = userData.isLaundry
             }
         }
     }

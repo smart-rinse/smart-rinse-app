@@ -10,6 +10,7 @@
     <string name="chat">Chat</string>
     <string name="setting">Setting</string>
     <string name="camera">Camera</string>
+    <string name="order">Order</string>
 
     <!-- Login - Register -->
     <string name="sr_logo_text">Logo Smart Rinse Text</string>
@@ -57,6 +58,8 @@
     <string name="desc_confirm_logout">Are you sure you want to log out?</string>
     <string name="phone">Phone</string>
     <string name="city">City</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
     <!-- Home -->
     <string name="laundry_available">Available Laundry</string>

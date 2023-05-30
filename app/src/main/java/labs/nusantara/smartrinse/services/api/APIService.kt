@@ -46,4 +46,14 @@ interface APIService {
         @Field("newPassword") newPassword: String,
         @Field("confirmPassword") confirmPassword: String
     ): Call<UserPasswordResponse>
+
+    @FormUrlEncoded
+    @PUT("editUser/{userId}")
+    fun putProfUser(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+        @Field("telephone") telephone: String,
+        @Field("city") city: String,
+        @Field("gender") gender: String
+    ): Call<UserDetailResponse>
 }

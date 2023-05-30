@@ -30,6 +30,12 @@ class SettingViewModel (private val repository: LaundryRepository) : ViewModel()
         }
     }
 
+    fun putProfileUser(token: String, userId: String, userTelp: String, userCity: String, userGender: String) {
+        viewModelScope.launch {
+            repository.putProfileUser(token, userId, userTelp, userCity, userGender)
+        }
+    }
+
     fun logout() {
         viewModelScope.launch {
             repository.logout()

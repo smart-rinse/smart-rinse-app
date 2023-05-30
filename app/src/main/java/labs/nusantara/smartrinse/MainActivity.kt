@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.navHome -> replaceFragment(HomeFragment())
                 R.id.navArticle -> replaceFragment(ArticleFragment())
-                R.id.navCamera -> {
+                R.id.navOrder -> {
                     Toast.makeText(this, "Feature Coming Soon", Toast.LENGTH_SHORT).show()
                 }
                 R.id.navChat -> {

@@ -14,6 +14,7 @@ import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import labs.nusantara.smartrinse.BuildConfig
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.ActivitySettingBinding
 import labs.nusantara.smartrinse.databinding.PopupPasswordBinding
@@ -100,7 +101,7 @@ class SettingActivity : AppCompatActivity(), OnItemClickListener {
 
 
     private fun infoApplication() {
-        val versionName: String = packageManager.getPackageInfo(packageName, 0).versionName
+        val versionName: String = BuildConfig.VERSION_NAME
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Informasi Aplikasi")
             .setMessage(

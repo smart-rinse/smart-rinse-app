@@ -41,6 +41,8 @@ class LaundryRepository private constructor (
 
     private val _changePasswordResponse = MutableLiveData<UserPasswordResponse>()
 
+    private val _changeProfileResponse = MutableLiveData<UserDetailResponse>()
+
 
     fun postRegister(name: String, email: String, password: String, confPassword: String) {
         _isLoading.value = true
@@ -218,6 +220,37 @@ class LaundryRepository private constructor (
             }
 
             override fun onFailure(call: Call<UserPasswordResponse>, t: Throwable) {
+                _toastText.value = Event(t.message.toString())
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun putProfileUser(token: String, userId: String, userTelp: String, userCity: String, userGender: String) {
+        _isLoading.value = true
+        Log.d("Change: ", "Token: $token, userId: $userId, userTelp: $userTelp, userCity: $userCity")
+        val client = apiService.putProfUser(token, userId, userTelp, userCity, userGender)
+
+        client.enqueue(object : Callback<UserDetailResponse> {
+            override fun onResponse(
+                call: Call<UserDetailResponse>,
+                response: Response<UserDetailResponse>
+            ) {
+                _isLoading.value = false
+                Log.d("ResponseChange : ",  response.body().toString())
+                if (response.isSuccessful && response.body() != null) {
+                    _changeProfileResponse.value = response.body()
+                    _toastText.value = Event(response.body()?.message.toString())
+                } else {
+                    _toastText.value = Event(response.message().toString())
+                    Log.e(
+                        TAG,
+                        "ErrorMessage: ${response.body()}, ${response.body()?.message.toString()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<UserDetailResponse>, t: Throwable) {
                 _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
             }
