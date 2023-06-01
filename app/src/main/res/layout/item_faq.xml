@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/size_8dp"
+    android:layout_marginVertical="4dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_itemfaq"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/size_8dp">
+
+        <TextView
+            android:id="@+id/text_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/size_8dp"
+            android:layout_marginStart="@dimen/size_16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="@string/lorem_ipsum"
+            android:paddingVertical="@dimen/size_8dp"
+            android:textSize="@dimen/text_size_14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/img_arrowitem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_arrowitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/size_8dp"
+            android:layout_marginEnd="@dimen/size_8dp"
+            android:contentDescription="@string/item_list"
+            android:paddingVertical="@dimen/size_8dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@+id/text_item"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_item" />
+
+        <TextView
+            android:id="@+id/text_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/size_8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/lorem_ipsum"
+            android:paddingVertical="@dimen/size_8dp"
+            android:textSize="@dimen/text_size_14sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

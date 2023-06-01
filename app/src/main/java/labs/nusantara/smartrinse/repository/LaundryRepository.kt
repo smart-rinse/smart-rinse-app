@@ -39,6 +39,9 @@ class LaundryRepository private constructor(
     private val _listUserItem = MutableLiveData<List<User>>()
     val listUserItem: LiveData<List<User>> = _listUserItem
 
+    private val _listFaqItem = MutableLiveData<List<FaqItem>>()
+    val listFaqItem: LiveData<List<FaqItem>> = _listFaqItem
+
     private val _changePasswordResponse = MutableLiveData<UserPasswordResponse>()
 
     private val _changeProfileResponse = MutableLiveData<UserDetailResponse>()
@@ -271,6 +274,38 @@ class LaundryRepository private constructor(
         })
     }
 
+    fun getFaq(token: String) {
+        Log.d("RESPONSE:", token)
+        _isLoading.value = true
+        val client = apiService.getFaq(token)
+        client.enqueue(object : Callback<FaqResponse> {
+            @SuppressLint("NullSafeMutableLiveData")
+            override fun onResponse(
+                call: Call<FaqResponse>,
+                response: Response<FaqResponse>
+            ) {
+                _isLoading.value = false
+                val listData = response.body()?.faq
+                if (response.isSuccessful) {
+                    if (listData.isNullOrEmpty()) {
+                        _toastText.value = Event("FAQ tidak ditemukan")
+                    } else {
+                        _listFaqItem.value = listData
+                    }
+                } else {
+                    _toastText.value = Event(response.message())
+                    Log.e(TAG, "ErrorMessage: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<FaqResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = Event("No internet connection")
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
     fun getSession(): LiveData<SessionModel> {
         return preferences.getSession().asLiveData()
     }
@@ -281,10 +316,6 @@ class LaundryRepository private constructor(
 
     suspend fun login() {
         preferences.login()
-    }
-
-    suspend fun logout() {
-        preferences.logout()
     }
 
     suspend fun clearLogout() {

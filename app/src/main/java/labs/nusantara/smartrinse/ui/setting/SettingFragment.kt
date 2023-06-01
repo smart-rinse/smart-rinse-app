@@ -22,7 +22,7 @@ import labs.nusantara.smartrinse.BuildConfig
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.FragmentSettingBinding
 import labs.nusantara.smartrinse.databinding.PopupPasswordBinding
-import labs.nusantara.smartrinse.MainActivity
+import labs.nusantara.smartrinse.ui.faq.FaqActivity
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.ui.setting.user.UserActivity
 import labs.nusantara.smartrinse.ui.setting.user.UserActivity.Companion.USER_ID
@@ -139,12 +139,7 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
                 changePassword()
             }
             1 -> {
-                startActivity(
-                    Intent(requireContext(), MainActivity::class.java).putExtra(
-                        "item",
-                        "FAQ"
-                    )
-                )
+                startActivity(Intent(requireContext(), FaqActivity::class.java))
             }
             2 -> {
                 Toast.makeText(requireContext(), "Coming soon", Toast.LENGTH_SHORT).show()

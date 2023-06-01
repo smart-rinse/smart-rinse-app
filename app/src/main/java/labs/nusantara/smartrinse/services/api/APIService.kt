@@ -31,6 +31,11 @@ interface APIService {
         @Header("Authorization") token: String
     ): Call<LaundryResponse>
 
+    @GET("faq")
+    fun getFaq(
+        @Header("Authorization") token: String
+    ): Call<FaqResponse>
+
     @GET("users/{userId}")
     fun getUserDetail(
         @Header("Authorization") token: String,
