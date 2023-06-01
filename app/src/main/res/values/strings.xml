@@ -67,4 +67,14 @@
     <string name="laundry_name">Laundry Name</string>
     <string name="laundry_city">Laundry City</string>
     <string name="laundry_time">Laundry Time</string>
+
+    <string name="title_menu_1">Revolution in Laundry Experience</string>
+    <string name="title_menu_2">Fast Workmanship for Your Busy Lifestyle</string>
+    <string name="title_menu_3">Experience Friendly and Experienced Service</string>
+    <string name="title_menu_4">Discover a Range of Laundry Service Options</string>
+    <string name="desc_menu_1">Easily select from a wide range of laundry needs, including wash, dry, fold, iron, and more.</string>
+    <string name="desc_menu_2">Say goodbye to long waiting times and hello to quick and reliable laundry services with SmartRinse.</string>
+    <string name="desc_menu_3">Our dedicated team of laundry professionals ensures your garments are treated with care and attention to detail.</string>
+    <string name="desc_menu_4">Explore a variety of laundry solutions and choose the perfect option that suits your preferences.</string>
+    <string name="get_started">Get Started</string>
 </resources>
