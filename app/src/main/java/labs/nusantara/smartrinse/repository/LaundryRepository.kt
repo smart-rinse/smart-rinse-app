@@ -14,10 +14,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LaundryRepository private constructor (
+class LaundryRepository private constructor(
     private val preferences: SessionPreferences,
     private val apiService: APIService
-){
+) {
     private val _regResponse = MutableLiveData<RegisterResponse>()
     val regResponse: LiveData<RegisterResponse> = _regResponse
 
@@ -87,7 +87,7 @@ class LaundryRepository private constructor (
                     _loginResponse.value = response.body()
                     _toastText.value = Event(response.body()?.message.toString())
                 } else {
-                    _toastText.value = Event(response.message().toString())
+                    _toastText.value = Event("Login Failed")
                     Log.e(
                         TAG,
                         "ErrorMessage: ${response.message()}, ${response.body()?.message.toString()}"
@@ -195,9 +195,14 @@ class LaundryRepository private constructor (
         })
     }
 
-    fun putUser(token: String, userId: String, oldPassword: String, newPassword: String, confirmPassword: String) {
+    fun putUser(
+        token: String,
+        userId: String,
+        oldPassword: String,
+        newPassword: String,
+        confirmPassword: String
+    ) {
         _isLoading.value = true
-        Log.d("Change: ", "Token: $token, Old Password: $oldPassword, New Password: $newPassword, Confirm Pass: $confirmPassword")
         val client = apiService.putUser(token, userId, oldPassword, newPassword, confirmPassword)
 
         client.enqueue(object : Callback<UserPasswordResponse> {
@@ -206,12 +211,12 @@ class LaundryRepository private constructor (
                 response: Response<UserPasswordResponse>
             ) {
                 _isLoading.value = false
-                Log.d("ResponseChange : ",  response.body().toString())
+                Log.d("ResponseChange : ", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     _changePasswordResponse.value = response.body()
                     _toastText.value = Event(response.body()?.message.toString())
                 } else {
-                    _toastText.value = Event(response.message().toString())
+                    _toastText.value = Event(response.body()?.message.toString())
                     Log.e(
                         TAG,
                         "ErrorMessage: ${response.body()}, ${response.body()?.message.toString()}"
@@ -226,9 +231,18 @@ class LaundryRepository private constructor (
         })
     }
 
-    fun putProfileUser(token: String, userId: String, userTelp: String, userCity: String, userGender: String) {
+    fun putProfileUser(
+        token: String,
+        userId: String,
+        userTelp: String,
+        userCity: String,
+        userGender: String
+    ) {
         _isLoading.value = true
-        Log.d("Change: ", "Token: $token, userId: $userId, userTelp: $userTelp, userCity: $userCity")
+        Log.d(
+            "Change: ",
+            "Token: $token, userId: $userId, userTelp: $userTelp, userCity: $userCity"
+        )
         val client = apiService.putProfUser(token, userId, userTelp, userCity, userGender)
 
         client.enqueue(object : Callback<UserDetailResponse> {
@@ -237,7 +251,7 @@ class LaundryRepository private constructor (
                 response: Response<UserDetailResponse>
             ) {
                 _isLoading.value = false
-                Log.d("ResponseChange : ",  response.body().toString())
+                Log.d("ResponseChange : ", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     _changeProfileResponse.value = response.body()
                     _toastText.value = Event(response.body()?.message.toString())
@@ -271,6 +285,11 @@ class LaundryRepository private constructor (
 
     suspend fun logout() {
         preferences.logout()
+    }
+
+    suspend fun clearLogout() {
+        preferences.logout()
+        _loginResponse.value = LoginResponse(Data("", "", "", "", false), false, "", 0)
     }
 
     companion object {

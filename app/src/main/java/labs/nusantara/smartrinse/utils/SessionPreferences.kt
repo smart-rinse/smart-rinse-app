@@ -24,8 +24,8 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
             preferences[ID_KEY] = session.userId
             preferences[EMAIL_KEY] = session.email
             preferences[NAME_KEY] = session.name
-            preferences[STATE_KEY] = session.isLogin
             preferences[TOKEN_KEY] = session.token
+            preferences[STATE_KEY] = session.isLogin
         }
     }
 
@@ -38,11 +38,8 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
     suspend fun logout() {
         dataStore.edit { preferences ->
             preferences.clear()
+            preferences[STATE_KEY] = false
         }
-    }
-
-    fun getSessionToken(): Preferences.Key<String> {
-        return TOKEN_KEY
     }
 
     companion object {

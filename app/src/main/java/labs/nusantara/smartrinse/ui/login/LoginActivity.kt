@@ -49,6 +49,10 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun prosesLogin() {
+        loginViewModel.isLoading.removeObservers(this@LoginActivity)
+        loginViewModel.toastText.removeObservers(this@LoginActivity)
+        loginViewModel.loginResponse.removeObservers(this@LoginActivity)
+
         // Show Loading Bar
         loginViewModel.isLoading.observe(this@LoginActivity) {
             binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
@@ -90,8 +94,6 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
                 intent.putExtra("extra_token", token)
                 startActivity(intent)
                 finish()
-            } else {
-                Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -38,7 +38,7 @@ class SettingViewModel (private val repository: LaundryRepository) : ViewModel()
 
     fun logout() {
         viewModelScope.launch {
-            repository.logout()
+            repository.clearLogout()
         }
     }
 }
