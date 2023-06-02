@@ -10,9 +10,9 @@
         android:icon="@drawable/ic_article" />
 
     <item
-        android:id="@+id/navOrder"
-        android:title="@string/order"
-        android:icon="@drawable/ic_order"/>
+        android:id="@+id/navFavorite"
+        android:title="@string/favorite"
+        android:icon="@drawable/ic_favorite"/>
 
     <item android:id="@+id/navChat"
         android:title="@string/chat"

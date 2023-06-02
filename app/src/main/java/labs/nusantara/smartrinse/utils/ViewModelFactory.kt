@@ -7,6 +7,7 @@ import labs.nusantara.smartrinse.repository.LaundryRepository
 import labs.nusantara.smartrinse.ui.article.ArticleViewModel
 import labs.nusantara.smartrinse.ui.faq.FaqViewModel
 import labs.nusantara.smartrinse.ui.home.HomeViewModel
+import labs.nusantara.smartrinse.ui.laundry.LaundryDetailViewModel
 import labs.nusantara.smartrinse.ui.login.LoginViewModel
 import labs.nusantara.smartrinse.ui.register.RegisterViewModel
 import labs.nusantara.smartrinse.ui.setting.SettingViewModel
@@ -34,6 +35,9 @@ class ViewModelFactory(private val repository: LaundryRepository) :
             }
             modelClass.isAssignableFrom(FaqViewModel::class.java) -> {
                 FaqViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(LaundryDetailViewModel::class.java) -> {
+                LaundryDetailViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

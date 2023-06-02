@@ -42,6 +42,12 @@ class LaundryRepository private constructor(
     private val _listFaqItem = MutableLiveData<List<FaqItem>>()
     val listFaqItem: LiveData<List<FaqItem>> = _listFaqItem
 
+    private val _listLaundryDetail = MutableLiveData<List<Laundry>>()
+    val listLaundryDetail: LiveData<List<Laundry>> = _listLaundryDetail
+
+    private val _listLaundryDetailReviews = MutableLiveData<List<ReviewsItem>>()
+    val listLaundryDetailReview: LiveData<List<ReviewsItem>> = _listLaundryDetailReviews
+
     private val _changePasswordResponse = MutableLiveData<UserPasswordResponse>()
 
     private val _changeProfileResponse = MutableLiveData<UserDetailResponse>()
@@ -193,6 +199,35 @@ class LaundryRepository private constructor(
             }
 
             override fun onFailure(call: Call<UserDetailResponse>, t: Throwable) {
+                Log.e("MainViewModel", "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun getLaundryDetailSimple(token: String, laundryId: String) {
+        _isLoading.value = true
+        val client = apiService.getLaundryDetail(token, laundryId)
+        client.enqueue(object : Callback<LaundryDetailResponse> {
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<LaundryDetailResponse>,
+                response: Response<LaundryDetailResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val laundryDetail = response.body()?.laundry
+                    if (laundryDetail != null) {
+                        _listLaundryDetail.value = listOf(laundryDetail)
+                    } else {
+                        _toastText.value = Event("Laundry data not found")
+                    }
+                } else {
+                    _isLoading.value = false
+                    Log.e("MainViewModel", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LaundryDetailResponse>, t: Throwable) {
                 Log.e("MainViewModel", "onFailure: ${t.message}")
             }
         })

@@ -22,9 +22,6 @@ data class LaundryResponse(
 @Parcelize
 data class LaundryItem(
 
-	@field:SerializedName("kota")
-	val kota: String,
-
 	@field:SerializedName("jam_operasional")
 	val jamOperasional: String,
 
@@ -35,5 +32,8 @@ data class LaundryItem(
 	val id: String,
 
 	@field:SerializedName("nama_laundry")
-	val namaLaundry: String
+	val namaLaundry: String,
+
+	@field:SerializedName("alamat")
+	val alamat: String
 ): Parcelable

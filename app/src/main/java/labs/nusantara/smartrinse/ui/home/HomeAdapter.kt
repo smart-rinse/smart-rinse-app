@@ -1,6 +1,7 @@
 package labs.nusantara.smartrinse.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import labs.nusantara.smartrinse.databinding.ItemLaundryVerticalBinding
 import labs.nusantara.smartrinse.services.response.LaundryItem
+import labs.nusantara.smartrinse.ui.laundry.LaundryDetailActivity
+import labs.nusantara.smartrinse.ui.laundry.LaundryDetailActivity.Companion.EXTRA_LAUNDRYDETAIL
+import labs.nusantara.smartrinse.ui.laundry.LaundryDetailActivity.Companion.EXTRA_LAUNDRYNAME
 
 class HomeAdapter (private val listDataLaundry: List<LaundryItem>) :
     RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
@@ -19,7 +23,7 @@ class HomeAdapter (private val listDataLaundry: List<LaundryItem>) :
         fun bind(data: LaundryItem) {
             userBinding.apply {
                 tvLaundryName.text = data.namaLaundry
-                tvLaundryCity.text = "Kota : ${data.kota}"
+                tvLaundryCity.text = "Kota : ${data.alamat}"
                 tvLaundryTime.text = "Hours : ${data.jamOperasional}"
                 if (data.photo.isNotEmpty()){
                     Glide.with(itemView.context)
@@ -28,19 +32,13 @@ class HomeAdapter (private val listDataLaundry: List<LaundryItem>) :
                         .into(ivLaundry)
                 }
 
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, ArticleDetailActivity::class.java)
-//                    intent.putExtra(ArticleDetailActivity.EXTRA_DETAIL, data.url)
-//                    intent.putExtra(ArticleDetailActivity.EXTRA_TITLE, data.title)
-//
-//                    val optionsCompat: ActivityOptionsCompat =
-//                        ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                            itemView.context as Activity,
-//                            Pair(tvLaundryName, "name"),
-//                            Pair(tvLaundryCity, "city")
-//                        )
-//                    itemView.context.startActivity(intent, optionsCompat.toBundle())
-//                }
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, LaundryDetailActivity::class.java)
+                    intent.putExtra(EXTRA_LAUNDRYDETAIL, data.id)
+                    intent.putExtra(EXTRA_LAUNDRYNAME, data.namaLaundry)
+                    itemView.context.startActivity(intent)
+                }
+
             }
 
         }
