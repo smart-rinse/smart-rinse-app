@@ -1,6 +1,8 @@
 package labs.nusantara.smartrinse.ui.laundry
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +24,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
     private lateinit var factory: ViewModelFactory
     private val laundryViewModel: LaundryDetailViewModel by viewModels { factory }
     private var token: String? = null
+    private var noWhatsapp: String? = null
     private val animationDuration = 200L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
         }
 
         binding.imgShare.setOnClickListener(this)
+        binding.btnChat.setOnClickListener(this)
         loadItem()
     }
 
@@ -99,7 +103,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 val ratingBar = binding.ratingMerchant
                 val rating = data.averageRating
                 ratingBar.rating = rating
-
+                noWhatsapp = "62xxxxxxxxxxx"
             }
         }
     }
@@ -148,6 +152,21 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 })
 
                 binding.imgShare.startAnimation(clickAnimation)
+            }
+
+            binding.btnChat.id -> {
+                val url = "https://api.whatsapp.com/send?phone=$noWhatsapp"
+                try {
+                    val pm = v.context.packageManager
+                    pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
+                    val i = Intent(Intent.ACTION_VIEW)
+                    i.data = Uri.parse(url)
+                    v.context.startActivity(i)
+                } catch (e: PackageManager.NameNotFoundException) {
+                    val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    v.context.startActivity(i)
+                }
+
             }
         }
     }
