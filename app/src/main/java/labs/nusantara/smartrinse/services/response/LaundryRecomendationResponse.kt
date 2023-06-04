@@ -1,6 +1,8 @@
 package labs.nusantara.smartrinse.services.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class LaundryRecomendationResponse(
 
@@ -17,10 +19,14 @@ data class LaundryRecomendationResponse(
 	val statusCode: Int
 )
 
+@Parcelize
 data class LaundryRecomendationItem(
 
-	@field:SerializedName("jam_operasional")
-	val jamOperasional: String,
+	@field:SerializedName("jam_buka")
+	val jamBuka: String,
+
+	@field:SerializedName("jam_tutup")
+	val jamTutup: String,
 
 	@field:SerializedName("photo")
 	val photo: String,
@@ -33,4 +39,4 @@ data class LaundryRecomendationItem(
 
 	@field:SerializedName("alamat")
 	val alamat: String
-)
+): Parcelable

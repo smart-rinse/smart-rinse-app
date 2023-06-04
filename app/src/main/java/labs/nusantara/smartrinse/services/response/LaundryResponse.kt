@@ -22,8 +22,11 @@ data class LaundryResponse(
 @Parcelize
 data class LaundryItem(
 
-	@field:SerializedName("jam_operasional")
-	val jamOperasional: String,
+	@field:SerializedName("jam_buka")
+	val jamBuka: String,
+
+	@field:SerializedName("jam_tutup")
+	val jamTutup: String,
 
 	@field:SerializedName("photo")
 	val photo: String,

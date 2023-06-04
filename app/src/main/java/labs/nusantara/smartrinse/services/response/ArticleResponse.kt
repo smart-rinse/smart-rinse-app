@@ -25,6 +25,9 @@ data class ArticleItem(
 	@field:SerializedName("date")
 	val date: String,
 
+	@field:SerializedName("thumbnail")
+	val thumbnail: String,
+
 	@field:SerializedName("author")
 	val author: String,
 
@@ -33,6 +36,9 @@ data class ArticleItem(
 
 	@field:SerializedName("title")
 	val title: String,
+
+	@field:SerializedName("category")
+	val category: String,
 
 	@field:SerializedName("url")
 	val url: String,

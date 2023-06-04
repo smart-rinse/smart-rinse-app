@@ -24,7 +24,7 @@ class HomeAdapter (private val listDataLaundry: List<LaundryItem>) :
             userBinding.apply {
                 tvLaundryName.text = data.namaLaundry
                 tvLaundryCity.text = "Kota : ${data.alamat}"
-                tvLaundryTime.text = "Hours : ${data.jamOperasional}"
+                tvLaundryTime.text = "Hours : ${data.jamBuka} - ${data.jamTutup}"
                 if (data.photo.isNotEmpty()){
                     Glide.with(itemView.context)
                         .load(data.photo)

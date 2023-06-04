@@ -101,7 +101,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 binding.tvMerchantAddress.text = data.alamat
                 binding.tvMerchantRating.text = data.averageRating.toString()
                 val ratingBar = binding.ratingMerchant
-                val rating = data.averageRating
+                val rating = data.averageRating.toFloat()
                 ratingBar.rating = rating
                 noWhatsapp = "62xxxxxxxxxxx"
             }

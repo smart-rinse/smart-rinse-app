@@ -12,6 +12,9 @@ data class LaundryDetailResponse(
 	@field:SerializedName("laundry")
 	val laundry: Laundry,
 
+	@field:SerializedName("services")
+	val services: List<ServicesItem>,
+
 	@field:SerializedName("message")
 	val message: String,
 
@@ -22,11 +25,11 @@ data class LaundryDetailResponse(
 @Parcelize
 data class Laundry(
 
-	@field:SerializedName("reviews")
-	val reviews: List<ReviewsItem>,
+	@field:SerializedName("jam_tutup")
+	val jamTutup: String,
 
-	@field:SerializedName("jam_operasional")
-	val jamOperasional: String,
+	@field:SerializedName("count_reviews")
+	val countReviews: String,
 
 	@field:SerializedName("latitude")
 	val latitude: String,
@@ -35,10 +38,7 @@ data class Laundry(
 	val photo: String,
 
 	@field:SerializedName("average_rating")
-	val averageRating: Float,
-
-	@field:SerializedName("id")
-	val id: String,
+	val averageRating: Int,
 
 	@field:SerializedName("tanggal_berdiri")
 	val tanggalBerdiri: String,
@@ -49,6 +49,18 @@ data class Laundry(
 	@field:SerializedName("alamat")
 	val alamat: String,
 
+	@field:SerializedName("jam_buka")
+	val jamBuka: String,
+
+	@field:SerializedName("reviews")
+	val reviews: List<ReviewsItem>,
+
+	@field:SerializedName("rekening")
+	val rekening: String,
+
+	@field:SerializedName("id")
+	val id: String,
+
 	@field:SerializedName("longitude")
 	val longitude: String
 ): Parcelable
@@ -57,7 +69,7 @@ data class Laundry(
 data class ReviewsItem(
 
 	@field:SerializedName("rating")
-	val rating: Float,
+	val rating: Int,
 
 	@field:SerializedName("name")
 	val name: String,
@@ -70,4 +82,17 @@ data class ReviewsItem(
 
 	@field:SerializedName("content")
 	val content: String
+): Parcelable
+
+@Parcelize
+data class ServicesItem(
+
+	@field:SerializedName("price")
+	val price: Int,
+
+	@field:SerializedName("id")
+	val id: Int,
+
+	@field:SerializedName("jenis_service")
+	val jenisService: String
 ): Parcelable
