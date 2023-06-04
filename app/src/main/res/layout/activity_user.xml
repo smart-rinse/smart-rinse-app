@@ -150,16 +150,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/background_circle"
-        android:padding="5dp"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        app:tint="@android:color/white"
+        android:id="@+id/img_upload"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/background_circle_dark_transparent"
+        android:backgroundTint="@color/sr_main_gray"
+        android:padding="@dimen/size_24dp"
         android:src="@drawable/ic_camera"
-        app:layout_constraintBottom_toBottomOf="@+id/image_user"
-        app:layout_constraintEnd_toEndOf="@+id/image_user"
+        app:layout_constraintBottom_toBottomOf="@id/image_user"
+        app:layout_constraintEnd_toEndOf="@id/image_user"
+        app:layout_constraintTop_toTopOf="@id/image_user"
+        app:layout_constraintStart_toStartOf="@id/image_user"
+        app:tint="@android:color/white"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ProgressBar

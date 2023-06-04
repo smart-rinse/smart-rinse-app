@@ -10,6 +10,8 @@ import labs.nusantara.smartrinse.services.response.*
 import labs.nusantara.smartrinse.utils.Event
 import labs.nusantara.smartrinse.utils.SessionModel
 import labs.nusantara.smartrinse.utils.SessionPreferences
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -310,16 +312,17 @@ class LaundryRepository private constructor(
     fun putProfileUser(
         token: String,
         userId: String,
-        userTelp: String,
-        userCity: String,
-        userGender: String
+        userTelp: RequestBody,
+        userCity: RequestBody,
+        userGender: RequestBody,
+        imageMultipart: MultipartBody.Part
     ) {
         _isLoading.value = true
         Log.d(
             "Change: ",
-            "Token: $token, userId: $userId, userTelp: $userTelp, userCity: $userCity"
+            "Token: $token, userId: $userId, userTelp: $userTelp, image: $imageMultipart"
         )
-        val client = apiService.putProfUser(token, userId, userTelp, userCity, userGender)
+        val client = apiService.putProfUser(token, userId, userTelp, userCity, userGender, imageMultipart)
 
         client.enqueue(object : Callback<UserDetailResponse> {
             override fun onResponse(

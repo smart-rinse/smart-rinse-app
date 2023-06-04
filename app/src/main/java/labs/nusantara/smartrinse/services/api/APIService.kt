@@ -1,6 +1,8 @@
 package labs.nusantara.smartrinse.services.api
 
 import labs.nusantara.smartrinse.services.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -63,13 +65,14 @@ interface APIService {
         @Field("confirmPassword") confirmPassword: String
     ): Call<UserPasswordResponse>
 
-    @FormUrlEncoded
+    @Multipart
     @PUT("editUser/{userId}")
     fun putProfUser(
         @Header("Authorization") token: String,
         @Path("userId") userId: String,
-        @Field("telephone") telephone: String,
-        @Field("city") city: String,
-        @Field("gender") gender: String
+        @Part("telephone") telephone: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part photo: MultipartBody.Part,
     ): Call<UserDetailResponse>
 }

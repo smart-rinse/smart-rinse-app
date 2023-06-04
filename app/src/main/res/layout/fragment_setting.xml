@@ -22,7 +22,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:padding="@dimen/size_8dp"
+            android:padding="5dp"
             android:contentDescription="@string/profile_picture"
             android:src="@drawable/default_image"
             android:background="@drawable/background_circle"

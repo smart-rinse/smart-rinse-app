@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import labs.nusantara.smartrinse.BuildConfig
 import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.FragmentSettingBinding
@@ -91,6 +93,7 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
                     .putExtra("USER_TELP", telephone)
                     .putExtra("USER_EMAIL", email)
                     .putExtra("USER_ISLAUNDRY", isLaundry)
+                    .putExtra("USER_TOKEN", token)
             )
         }
     }
@@ -122,6 +125,14 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
                 telephone = userData.telephone
                 email = userData.email
                 isLaundry = userData.isLaundry
+
+                if (userData.photo.isNotEmpty()){
+                    Glide.with(this@SettingFragment)
+                        .load(userData.photo)
+                        .circleCrop()
+                        .transition(DrawableTransitionOptions.withCrossFade(500))
+                        .into(binding.imgProfilePicture)
+                }
             }
         }
     }
