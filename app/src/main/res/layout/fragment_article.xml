@@ -46,7 +46,20 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="@dimen/text_size_12sp"
-                android:text="Kategori 1"
+                android:text="@string/laundry"
+                android:button="@null"
+                android:background="@drawable/tab_selector"
+                android:textColor="@drawable/tab_text_selector"
+                android:gravity="center"/>
+
+            <RadioButton
+                android:id="@+id/rad_business"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/text_size_12sp"
+                android:text="@string/business"
                 android:button="@null"
                 android:background="@drawable/tab_selector"
                 android:textColor="@drawable/tab_text_selector"
@@ -59,7 +72,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="@dimen/text_size_12sp"
-                android:text="Kategori 2"
+                android:text="@string/tips"
                 android:button="@null"
                 android:background="@drawable/tab_selector"
                 android:textColor="@drawable/tab_text_selector"
@@ -67,19 +80,6 @@
 
             <RadioButton
                 android:id="@+id/rad_null"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_12sp"
-                android:text=""
-                android:button="@null"
-                android:background="@drawable/tab_selector"
-                android:textColor="@drawable/tab_text_selector"
-                android:gravity="center"/>
-
-            <RadioButton
-                android:id="@+id/rad_null2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

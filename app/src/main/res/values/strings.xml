@@ -101,5 +101,7 @@
     <string name="process">Process</string>
     <string name="solution">Solution</string>
     <string name="all_category">All Category</string>
-    <string name="tips_trick"><![CDATA[Tips & Trick]]></string>
+    <string name="tips">Tips</string>
+    <string name="laundry">Laundry</string>
+    <string name="business">Business</string>
 </resources>

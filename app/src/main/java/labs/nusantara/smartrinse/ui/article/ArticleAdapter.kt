@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import labs.nusantara.smartrinse.databinding.ItemArticleBinding
 import labs.nusantara.smartrinse.services.response.ArticleItem
 import labs.nusantara.smartrinse.ui.article.detail.ArticleDetailActivity
@@ -21,10 +23,17 @@ class ArticleAdapter (private val listDataStory: List<ArticleItem>) :
 
         fun bind(data: ArticleItem) {
             userBinding.apply {
+                lblCategory.text = data.category
                 tvTitleArticle.text = data.title
                 tvAuthArticle.text = data.author
                 tvDateArticle.text = data.date
                 tvDescArticle.text = data.sinopsis
+                if (data.thumbnail.isNotEmpty()){
+                    Glide.with(itemView.context)
+                        .load(data.thumbnail)
+                        .transition(DrawableTransitionOptions.withCrossFade(500))
+                        .into(ivArticle)
+                }
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, ArticleDetailActivity::class.java)

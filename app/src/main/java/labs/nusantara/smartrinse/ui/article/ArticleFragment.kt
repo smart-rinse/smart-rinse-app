@@ -2,9 +2,11 @@ package labs.nusantara.smartrinse.ui.article
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +39,29 @@ class ArticleFragment : Fragment() {
         requireActivity().actionBar?.hide()
         loadData()
         binding.radNull.isClickable = false
-        binding.radNull2.isClickable = false
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            val selectedRadioButton = binding.root.findViewById<RadioButton>(checkedId)
+            val selectedCategory = selectedRadioButton.text.toString()
+            loadCategory(selectedCategory)
+        }
+    }
+
+    private fun loadCategory(category: String) {
+        Log.d("Category : ", category)
+        articleViewModel.listDataArticle.observe(viewLifecycleOwner) { listData ->
+            if (category == "All Category") {
+                binding.rvArticle.adapter = ArticleAdapter(listData)
+            } else {
+                val filteredList = listData.filter { article ->
+                    if (category == "Tips") {
+                        article.category == "Tips&Trics"
+                    } else {
+                        article.category == category
+                    }
+                }
+                binding.rvArticle.adapter = ArticleAdapter(filteredList)
+            }
+        }
     }
 
     private fun loadData() {
