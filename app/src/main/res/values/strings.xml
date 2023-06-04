@@ -10,7 +10,7 @@
     <string name="chat">Chat</string>
     <string name="setting">Setting</string>
     <string name="camera">Camera</string>
-    <string name="order">Order</string>
+    <string name="history">Order History</string>
     <string name="favorite">Favorite</string>
 
     <!-- Login - Register -->

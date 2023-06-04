@@ -1,9 +1,13 @@
 package labs.nusantara.smartrinse.ui.laundry
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.OnClickListener
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,12 +16,13 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import labs.nusantara.smartrinse.databinding.ActivityLaundryBinding
 import labs.nusantara.smartrinse.utils.ViewModelFactory
 
-class LaundryDetailActivity : AppCompatActivity() {
+class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
 
     private lateinit var binding: ActivityLaundryBinding
     private lateinit var factory: ViewModelFactory
     private val laundryViewModel: LaundryDetailViewModel by viewModels { factory }
     private var token: String? = null
+    private val animationDuration = 200L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +43,22 @@ class LaundryDetailActivity : AppCompatActivity() {
             loadData(laundryId)
         }
 
+        binding.imgShare.setOnClickListener(this)
         loadItem()
+    }
+
+    private fun shareContent() {
+        laundryViewModel.listDataLaundry.observe(this@LaundryDetailActivity) { listData ->
+            val data = listData.firstOrNull()
+            if (data != null) {
+                val sharingIntent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = "text/plain"
+                val shareBody = "I found \"${data.namaLaundry}\" laundry on the \"Smart Rinse\" app. Let's download it now at play store. "
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Smart Rinse")
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+                startActivity(Intent.createChooser(sharingIntent, "Share via"))
+            }
+        }
     }
 
     private fun loadItem(){
@@ -99,6 +119,37 @@ class LaundryDetailActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_LAUNDRYDETAIL = "extra_laundrydetail"
         const val EXTRA_LAUNDRYNAME = "extra_laundryname"
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            binding.imgShare.id -> {
+                val clickAnimation = ScaleAnimation(
+                    1f, 0.9f,
+                    1f, 0.9f,
+                    Animation.RELATIVE_TO_SELF, 0.5f,
+                    Animation.RELATIVE_TO_SELF, 0.5f
+                )
+
+                clickAnimation.duration = animationDuration
+                clickAnimation.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation?) {
+                        // Animation start event
+                    }
+
+                    override fun onAnimationEnd(animation: Animation?) {
+                        // Animation end event
+                        shareContent()
+                    }
+
+                    override fun onAnimationRepeat(animation: Animation?) {
+                        // Animation repeat event
+                    }
+                })
+
+                binding.imgShare.startAnimation(clickAnimation)
+            }
+        }
     }
 
 }

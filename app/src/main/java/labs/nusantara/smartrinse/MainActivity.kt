@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.navHome -> replaceFragment(HomeFragment())
                 R.id.navArticle -> replaceFragment(ArticleFragment())
-                R.id.navFavorite -> {
+                R.id.navHistory -> {
                     Toast.makeText(this, "Feature Coming Soon", Toast.LENGTH_SHORT).show()
                 }
-                R.id.navChat -> {
+                R.id.navFavorite -> {
                     Toast.makeText(this, "Feature Coming Soon", Toast.LENGTH_SHORT).show()
                 }
                 R.id.navSetting -> {

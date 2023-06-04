@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import labs.nusantara.smartrinse.databinding.FragmentHomeBinding
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
@@ -47,6 +48,20 @@ class HomeFragment : Fragment() {
             if (!session.isLogin) {
                 backLogin()
             } else {
+                // Get Recomendation Laundry
+                homeViewModel.getDataLaundrySentiment(tokenAuth)
+                binding.rvRecLaundry.apply {
+                    layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    setHasFixedSize(true)
+                }
+                homeViewModel.listDataRecLaundry.observe(viewLifecycleOwner) { listData ->
+                    binding.rvRecLaundry.adapter = HomeRecAdapter(listData)
+                }
+                homeViewModel.isRecLoading.observe(viewLifecycleOwner) { load ->
+                    showRecLoading(load)
+                }
+
+                // Get All Laundry
                 homeViewModel.getDataLaundry(tokenAuth)
                 binding.rvLaundry.apply {
                     layoutManager = GridLayoutManager(requireContext(), 2)
@@ -65,6 +80,13 @@ class HomeFragment : Fragment() {
     private fun backLogin() {
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
+    }
+
+    private fun showRecLoading(isLoading: Boolean) {
+        when (isLoading) {
+            true -> binding.progressBarRec.visibility = View.VISIBLE
+            false -> binding.progressBarRec.visibility = View.GONE
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

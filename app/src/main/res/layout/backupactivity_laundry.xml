@@ -69,7 +69,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="@string/ld_label_description"
+                android:text="@string/ld_label_service"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_merchant_address" />

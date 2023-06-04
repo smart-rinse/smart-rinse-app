@@ -27,6 +27,9 @@ class LaundryRepository private constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isRecLoading = MutableLiveData<Boolean>()
+    val isRecLoading: LiveData<Boolean> = _isRecLoading
+
     private val _toastText = MutableLiveData<Event<String>>()
     val toastText: LiveData<Event<String>> = _toastText
 
@@ -35,6 +38,9 @@ class LaundryRepository private constructor(
 
     private val _listLaundryItem = MutableLiveData<List<LaundryItem>>()
     val listLaundryItem: LiveData<List<LaundryItem>> = _listLaundryItem
+
+    private val _listLaundryRecItem = MutableLiveData<List<LaundryRecomendationItem>>()
+    val listLaundryRecItem: LiveData<List<LaundryRecomendationItem>> = _listLaundryRecItem
 
     private val _listUserItem = MutableLiveData<List<User>>()
     val listUserItem: LiveData<List<User>> = _listUserItem
@@ -169,6 +175,38 @@ class LaundryRepository private constructor(
 
             override fun onFailure(call: Call<LaundryResponse>, t: Throwable) {
                 _isLoading.value = false
+                _toastText.value = Event("No internet connection")
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getLaundrySentiment(token: String) {
+        Log.d("RESPONSE:", token)
+        _isRecLoading.value = true
+        val client = apiService.getLaundrySentiment(token)
+        client.enqueue(object : Callback<LaundryRecomendationResponse> {
+            @SuppressLint("NullSafeMutableLiveData")
+            override fun onResponse(
+                call: Call<LaundryRecomendationResponse>,
+                response: Response<LaundryRecomendationResponse>
+            ) {
+                _isRecLoading.value = false
+                val listData = response.body()?.laundry
+                if (response.isSuccessful) {
+                    if (listData.isNullOrEmpty()) {
+                        _toastText.value = Event("Laundry tidak ditemukan")
+                    } else {
+                        _listLaundryRecItem.value = listData
+                    }
+                } else {
+                    _toastText.value = Event(response.message())
+                    Log.e(TAG, "ErrorMessage: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LaundryRecomendationResponse>, t: Throwable) {
+                _isRecLoading.value = false
                 _toastText.value = Event("No internet connection")
                 Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
             }

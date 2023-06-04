@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="150dp"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_itemhome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="150dp"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:id="@+id/iv_laundry"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@color/white"
+            android:contentDescription="@string/laundry_thumbnail"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_image_rec"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_laundry_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:text="@string/laundry_name"
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_laundry" />
+
+        <TextView
+            android:id="@+id/tv_laundry_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLines="2"
+            android:text="@string/laundry_city"
+            android:textSize="@dimen/text_size_10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_laundry_name" />
+
+
+        <TextView
+            android:id="@+id/tv_laundry_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_regular"
+            android:maxLines="2"
+            android:text="@string/laundry_time"
+            android:textSize="@dimen/text_size_10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_laundry_city" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_laundry"
+            app:layout_constraintTop_toTopOf="@+id/iv_laundry"
+            app:srcCompat="@drawable/ic_bookmark_solid" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
