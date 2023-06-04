@@ -35,8 +35,9 @@ class ArticleFragment : Fragment() {
         factory = ViewModelFactory.getInstance(requireContext())
 
         requireActivity().actionBar?.hide()
-
         loadData()
+        binding.radNull.isClickable = false
+        binding.radNull2.isClickable = false
     }
 
     private fun loadData() {

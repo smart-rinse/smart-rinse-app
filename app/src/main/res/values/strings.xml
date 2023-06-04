@@ -64,6 +64,7 @@
 
     <!-- Home -->
     <string name="laundry_available">Available Laundry</string>
+    <string name="laundry_recommended">Recommended Laundry</string>
     <string name="laundry_thumbnail">Laundry Thumbnail</string>
     <string name="laundry_name">Laundry Name</string>
     <string name="laundry_city">Laundry City</string>
@@ -82,7 +83,8 @@
 
     <!-- Laundry -->
     <string name="ld_title_laundry">Laundry Indonesia</string>
-    <string name="ld_label_description">Description</string>
+    <string name="ld_label_service">Services</string>
+    <string name="ld_label_review">Reviews</string>
     <string name="ld_content_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis risus sed vulputate odio ut enim blandit volutpat maecenas.</string>
     <string name="ld_work_hours">08:00 – 20:00</string>
     <string name="ld_place">Bandung, Jawa Barat</string>
@@ -92,13 +94,12 @@
     <string name="ld_service_price">Service price</string>
 
     <string name="ld_loremipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque pulvinar pellentesque habitant morbi. Purus viverra accumsan in nisl. Purus non enim praesent elementum facilisis leo vel fringilla est. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. Gravida neque convallis a cras. A arcu cursus vitae congue mauris rhoncus. Eget duis at tellus at. Amet porttitor eget dolor morbi. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Porttitor eget dolor morbi non arcu risus quis varius quam. Augue neque gravida in fermentum et sollicitudin ac orci phasellus. Tincidunt id aliquet risus feugiat in ante. Quam vulputate dignissim suspendisse in est. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget.
-
     Platea dictumst quisque sagittis purus. Odio ut sem nulla pharetra diam sit amet nisl suscipit. Augue mauris augue neque gravida. Vestibulum lorem sed risus ultricies tristique nulla aliquet enim. Libero volutpat sed cras ornare arcu dui. Ut etiam sit amet nisl purus in mollis nunc sed. Vel pharetra vel turpis nunc eget lorem dolor sed. Sed egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Morbi tristique senectus et netus. Lorem dolor sed viverra ipsum. Accumsan tortor posuere ac ut consequat. Aliquam faucibus purus in massa tempor nec feugiat nisl.
-
     At tempor commodo ullamcorper a lacus vestibulum. Justo laoreet sit amet cursus sit. Adipiscing elit ut aliquam purus sit amet. Lacus vestibulum sed arcu non odio. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt. Proin fermentum leo vel orci porta non pulvinar. Sit amet purus gravida quis. Urna nec tincidunt praesent semper. Pellentesque adipiscing commodo elit at imperdiet dui accumsan. Odio euismod lacinia at quis risus sed vulputate. Id neque aliquam vestibulum morbi blandit cursus. Facilisi cras fermentum odio eu.
-
     Et netus et malesuada fames. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. Risus in hendrerit gravida rutrum quisque non tellus orci. Placerat duis ultricies lacus sed turpis tincidunt. Interdum velit laoreet id donec ultrices tincidunt. Nisl nisi scelerisque eu ultrices vitae auctor eu. Sed arcu non odio euismod. Habitant morbi tristique senectus et netus et malesuada. Faucibus purus in massa tempor nec feugiat nisl. Quam viverra orci sagittis eu volutpat odio facilisis mauris.
-
     Pretium fusce id velit ut tortor pretium viverra suspendisse. Ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet. Sed euismod nisi porta lorem mollis aliquam. Lobortis mattis aliquam faucibus purus in. Sit amet nisl purus in. Lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Eget mauris pharetra et ultrices neque ornare aenean euismod. Velit laoreet id donec ultrices tincidunt arcu non. Et magnis dis parturient montes nascetur ridiculus mus mauris. Vitae turpis massa sed elementum tempus. Et leo duis ut diam quam nulla porttitor. Volutpat maecenas volutpat blandit aliquam. Volutpat blandit aliquam etiam erat velit scelerisque in dictum. Lectus urna duis convallis tellus id interdum. Consequat ac felis donec et odio pellentesque diam volutpat. Gravida quis blandit turpis cursus in. Aliquet eget sit amet tellus cras adipiscing. Pharetra sit amet aliquam id diam maecenas ultricies. Placerat in egestas erat imperdiet sed euismod nisi porta.</string>
     <string name="process">Process</string>
+    <string name="solution">Solution</string>
+    <string name="all_category">All Category</string>
+    <string name="tips_trick"><![CDATA[Tips & Trick]]></string>
 </resources>

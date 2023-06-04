@@ -5,16 +5,105 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/category_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="@dimen/size_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/rad_all"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/text_size_12sp"
+                android:text="@string/all_category"
+                android:button="@null"
+                android:background="@drawable/tab_selector"
+                android:textColor="@drawable/tab_text_selector"
+                android:gravity="center"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/rad_solution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/text_size_12sp"
+                android:text="Kategori 1"
+                android:button="@null"
+                android:background="@drawable/tab_selector"
+                android:textColor="@drawable/tab_text_selector"
+                android:gravity="center"/>
+
+            <RadioButton
+                android:id="@+id/rad_tips"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/text_size_12sp"
+                android:text="Kategori 2"
+                android:button="@null"
+                android:background="@drawable/tab_selector"
+                android:textColor="@drawable/tab_text_selector"
+                android:gravity="center"/>
+
+            <RadioButton
+                android:id="@+id/rad_null"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/text_size_12sp"
+                android:text=""
+                android:button="@null"
+                android:background="@drawable/tab_selector"
+                android:textColor="@drawable/tab_text_selector"
+                android:gravity="center"/>
+
+            <RadioButton
+                android:id="@+id/rad_null2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/text_size_12sp"
+                android:text=""
+                android:button="@null"
+                android:background="@drawable/tab_selector"
+                android:textColor="@drawable/tab_text_selector"
+                android:gravity="center"/>
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_article"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/size_8dp"
+        android:layout_marginEnd="@dimen/size_8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_layout"
         tools:listitem="@layout/item_article" />
 
     <ProgressBar
