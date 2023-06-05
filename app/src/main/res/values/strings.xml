@@ -8,7 +8,7 @@
     <string name="home">Home</string>
     <string name="article">Article</string>
     <string name="chat">Chat</string>
-    <string name="setting">Setting</string>
+    <string name="setting">Account</string>
     <string name="camera">Camera</string>
     <string name="history">Order History</string>
     <string name="favorite">Favorite</string>
@@ -90,8 +90,13 @@
     <string name="ld_place">Bandung, Jawa Barat</string>
     <string name="ld_establish">2023</string>
     <string name="ld_average_rating">4.5</string>
+    <string name="ld_count_rating">0 Reviews</string>
     <string name="ld_service_name">Service name</string>
     <string name="ld_service_price">Service price</string>
+    <string name="ld_review_img_user">Image user</string>
+    <string name="ld_review_name_user">Name user</string>
+    <string name="ld_review_content">Content</string>
+    <string name="ld_review_rating">0</string>
 
     <string name="ld_loremipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque pulvinar pellentesque habitant morbi. Purus viverra accumsan in nisl. Purus non enim praesent elementum facilisis leo vel fringilla est. Sapien et ligula ullamcorper malesuada proin libero nunc consequat. Gravida neque convallis a cras. A arcu cursus vitae congue mauris rhoncus. Eget duis at tellus at. Amet porttitor eget dolor morbi. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Porttitor eget dolor morbi non arcu risus quis varius quam. Augue neque gravida in fermentum et sollicitudin ac orci phasellus. Tincidunt id aliquet risus feugiat in ante. Quam vulputate dignissim suspendisse in est. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget.
     Platea dictumst quisque sagittis purus. Odio ut sem nulla pharetra diam sit amet nisl suscipit. Augue mauris augue neque gravida. Vestibulum lorem sed risus ultricies tristique nulla aliquet enim. Libero volutpat sed cras ornare arcu dui. Ut etiam sit amet nisl purus in mollis nunc sed. Vel pharetra vel turpis nunc eget lorem dolor sed. Sed egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Morbi tristique senectus et netus. Lorem dolor sed viverra ipsum. Accumsan tortor posuere ac ut consequat. Aliquam faucibus purus in massa tempor nec feugiat nisl.

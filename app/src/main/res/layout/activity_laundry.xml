@@ -78,16 +78,48 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_merchant_name" />
 
+                <RatingBar
+                    android:id="@+id/rating_merchant"
+                    style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="1dp"
+                    android:backgroundTint="@color/sr_main_gray"
+                    android:contentDescription="@string/app_name"
+                    android:numStars="5"
+                    android:progressTint="@color/sr_google_yellow"
+                    android:rating="4"
+                    android:scaleX="1"
+                    android:scaleY="1"
+                    android:stepSize="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_merchant_address" />
+
+
                 <TextView
                     android:id="@+id/tv_merchant_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="8dp"
                     android:fontFamily="@font/poppins_light"
                     android:text="@string/ld_average_rating"
                     android:textSize="@dimen/text_size_14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_merchant_address" />
+                    app:layout_constraintBottom_toBottomOf="@id/rating_merchant"
+                    app:layout_constraintStart_toEndOf="@+id/rating_merchant"
+                    app:layout_constraintTop_toTopOf="@+id/rating_merchant" />
+
+                <TextView
+                    android:id="@+id/tv_rating_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="@string/ld_count_rating"
+                    android:textSize="@dimen/text_size_14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_merchant_rating"
+                    app:layout_constraintStart_toEndOf="@id/tv_merchant_rating"
+                    app:layout_constraintTop_toTopOf="@id/tv_merchant_rating" />
 
                 <ImageView
                     android:id="@+id/img_share"
@@ -198,6 +230,17 @@
                     app:layout_constraintTop_toBottomOf="@id/tab_laundry"
                     tools:listitem="@layout/item_laundry_services" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_laundry_reviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/size_8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tab_laundry"
+                    tools:listitem="@layout/item_laundry_reviews" />
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyle"
@@ -207,24 +250,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <RatingBar
-                    android:id="@+id/rating_merchant"
-                    style="@android:style/Widget.DeviceDefault.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="1dp"
-                    android:backgroundTint="@color/sr_main_gray"
-                    android:contentDescription="@string/app_name"
-                    android:numStars="5"
-                    android:progressTint="@color/sr_google_yellow"
-                    android:rating="4"
-                    android:scaleX="1"
-                    android:scaleY="1"
-                    android:stepSize="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/tv_merchant_rating"
-                    app:layout_constraintTop_toTopOf="@+id/tv_merchant_rating" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
@@ -245,10 +270,10 @@
             android:id="@+id/btn_chat"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_whatsapp"
-            android:scaleType="fitXY"
-            android:padding="0dp"
             android:background="@color/white"
+            android:padding="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_whatsapp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

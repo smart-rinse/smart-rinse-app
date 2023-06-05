@@ -1,5 +1,6 @@
 package labs.nusantara.smartrinse.ui.laundry
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,12 +11,13 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import android.widget.RadioButton
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import labs.nusantara.smartrinse.databinding.ActivityLaundryBinding
+import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
 
 class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
@@ -24,6 +26,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
     private lateinit var factory: ViewModelFactory
     private val laundryViewModel: LaundryDetailViewModel by viewModels { factory }
     private var token: String? = null
+    private var valueLaundryId: String? = null
     private var noWhatsapp: String? = null
     private val animationDuration = 200L
 
@@ -44,11 +47,24 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
 
         if (laundryId != null) {
             loadData(laundryId)
+            valueLaundryId = laundryId
         }
 
         binding.imgShare.setOnClickListener(this)
         binding.btnChat.setOnClickListener(this)
-        loadItem()
+        loadService()
+
+        binding.radNull.isClickable = false
+        binding.radNull2.isClickable = false
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            val selectedRadioButton = binding.root.findViewById<RadioButton>(checkedId)
+            val selectedMenu = selectedRadioButton.text.toString()
+
+            when (selectedMenu) {
+                "Services" -> loadService()
+                "Reviews" -> loadReviews()
+            }
+        }
     }
 
     private fun shareContent() {
@@ -57,7 +73,8 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
             if (data != null) {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
-                val shareBody = "I found \"${data.namaLaundry}\" laundry on the \"Smart Rinse\" app. Let's download it now at play store. "
+                val shareBody =
+                    "I found \"${data.namaLaundry}\" laundry on the \"Smart Rinse\" app. Let's download it now at play store. "
                 sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Smart Rinse")
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
                 startActivity(Intent.createChooser(sharingIntent, "Share via"))
@@ -65,16 +82,61 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun loadItem(){
-        val itemList = arrayOf("Service 1", "Service 2", "Service 3", "Service 4", "Service 5", "Service 6", "Service 7", "Service 8")
-
-        val recyclerView: RecyclerView = binding.rvLaundryService
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        val adapter = LaundryAdapter(itemList.toList())
-        recyclerView.adapter = adapter
+    private fun loadReviews() {
+        binding.rvLaundryReviews.visibility = View.VISIBLE
+        binding.rvLaundryService.visibility = View.GONE
+        laundryViewModel.getSession().observe(this@LaundryDetailActivity) { session ->
+            token = session.token
+            val tokenAuth = session.token
+            if (!session.isLogin) {
+                backLogin()
+            } else {
+                valueLaundryId?.let { laundryViewModel.getLaundryReviews(tokenAuth, it) }
+                binding.rvLaundryReviews.apply {
+                    layoutManager = LinearLayoutManager(this@LaundryDetailActivity)
+                    setHasFixedSize(true)
+                }
+                laundryViewModel.listDataLaundryReview.observe(this@LaundryDetailActivity) { listData ->
+                    binding.rvLaundryReviews.adapter = listData?.let { LaundryReviewsAdapter(it) }
+                }
+                laundryViewModel.isLoading.observe(this@LaundryDetailActivity) { load ->
+                    showLoading(load)
+                }
+            }
+        }
     }
 
+    private fun loadService() {
+        binding.rvLaundryService.visibility = View.VISIBLE
+        binding.rvLaundryReviews.visibility = View.GONE
+        laundryViewModel.getSession().observe(this@LaundryDetailActivity) { session ->
+            token = session.token
+            val tokenAuth = session.token
+            if (!session.isLogin) {
+                backLogin()
+            } else {
+                valueLaundryId?.let { laundryViewModel.getLaundryService(tokenAuth, it) }
+                binding.rvLaundryService.apply {
+                    layoutManager = LinearLayoutManager(this@LaundryDetailActivity)
+                    setHasFixedSize(true)
+                }
+                laundryViewModel.listDataLaundryService.observe(this@LaundryDetailActivity) { listData ->
+                    binding.rvLaundryService.adapter = listData?.let { LaundryAdapter(it) }
+                }
+                laundryViewModel.isLoading.observe(this@LaundryDetailActivity) { load ->
+                    showLoading(load)
+                }
+            }
+        }
+    }
+
+    private fun backLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun loadData(laundryId: String) {
         laundryViewModel.getSession().observe(this@LaundryDetailActivity) { session ->
             token = session.token
@@ -91,7 +153,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
         laundryViewModel.listDataLaundry.observe(this@LaundryDetailActivity) { listData ->
             val data = listData.firstOrNull()
             if (data != null) {
-                if (data.photo.isNotEmpty()){
+                if (data.photo.isNotEmpty()) {
                     Glide.with(this@LaundryDetailActivity)
                         .load(data.photo)
                         .transition(DrawableTransitionOptions.withCrossFade(500))
@@ -99,10 +161,12 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 }
                 binding.tvMerchantName.text = data.namaLaundry
                 binding.tvMerchantAddress.text = data.alamat
-                binding.tvMerchantRating.text = data.averageRating.toString()
+                binding.tvMerchantRating.text = "${data.averageRating}"
+                binding.tvRatingCount.text = "(${data.countReviews} Reviews)"
                 val ratingBar = binding.ratingMerchant
                 val rating = data.averageRating.toFloat()
                 ratingBar.rating = rating
+
                 noWhatsapp = "62xxxxxxxxxxx"
             }
         }

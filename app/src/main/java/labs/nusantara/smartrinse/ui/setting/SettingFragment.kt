@@ -126,13 +126,14 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
                 email = userData.email
                 isLaundry = userData.isLaundry
 
-                if (userData.photo.isNotEmpty()){
+                if (photo != null) {
                     Glide.with(this@SettingFragment)
                         .load(userData.photo)
                         .circleCrop()
                         .transition(DrawableTransitionOptions.withCrossFade(500))
                         .into(binding.imgProfilePicture)
                 }
+
             }
         }
     }

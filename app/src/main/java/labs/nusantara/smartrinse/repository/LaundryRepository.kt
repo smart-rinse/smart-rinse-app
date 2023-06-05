@@ -53,8 +53,11 @@ class LaundryRepository private constructor(
     private val _listLaundryDetail = MutableLiveData<List<Laundry>>()
     val listLaundryDetail: LiveData<List<Laundry>> = _listLaundryDetail
 
-    private val _listLaundryDetailReviews = MutableLiveData<List<ReviewsItem>>()
-    val listLaundryDetailReview: LiveData<List<ReviewsItem>> = _listLaundryDetailReviews
+    private val _listLaundryService = MutableLiveData<List<ServicesItem>?>()
+    val listLaundryService: MutableLiveData<List<ServicesItem>?> = _listLaundryService
+
+    private val _listLaundryReviews = MutableLiveData<List<ReviewsItem>?>()
+    val listLaundryReviews: MutableLiveData<List<ReviewsItem>?> = _listLaundryReviews
 
     private val _changePasswordResponse = MutableLiveData<UserPasswordResponse>()
 
@@ -260,6 +263,64 @@ class LaundryRepository private constructor(
                         _listLaundryDetail.value = listOf(laundryDetail)
                     } else {
                         _toastText.value = Event("Laundry data not found")
+                    }
+                } else {
+                    _isLoading.value = false
+                    Log.e("MainViewModel", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LaundryDetailResponse>, t: Throwable) {
+                Log.e("MainViewModel", "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun getLaundryServiceSimple(token: String, laundryId: String) {
+        _isLoading.value = true
+        val client = apiService.getLaundryDetail(token, laundryId)
+        client.enqueue(object : Callback<LaundryDetailResponse> {
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<LaundryDetailResponse>,
+                response: Response<LaundryDetailResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val laundryDetail = response.body()?.services
+                    if (laundryDetail != null) {
+                        _listLaundryService.value = laundryDetail
+                    } else {
+                        _toastText.value = Event("Laundry service not found")
+                    }
+                } else {
+                    _isLoading.value = false
+                    Log.e("MainViewModel", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LaundryDetailResponse>, t: Throwable) {
+                Log.e("MainViewModel", "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun getLaundryReviewsSimple(token: String, laundryId: String) {
+        _isLoading.value = true
+        val client = apiService.getLaundryDetail(token, laundryId)
+        client.enqueue(object : Callback<LaundryDetailResponse> {
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<LaundryDetailResponse>,
+                response: Response<LaundryDetailResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    val laundryDetail = response.body()?.laundry?.reviews
+                    if (laundryDetail != null) {
+                        _listLaundryReviews.value = laundryDetail
+                    } else {
+                        _toastText.value = Event("Laundry reviews not found")
                     }
                 } else {
                     _isLoading.value = false

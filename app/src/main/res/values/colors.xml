@@ -10,9 +10,13 @@
     <color name="sr_main_green">#0FA958</color>
     <color name="sr_main_dark_green">#009949</color>
     <color name="sr_main_black">#11151C</color>
+    <color name="sr_black">#282828</color>
+    <color name="sr_black_secondary">#303030</color>
     <color name="sr_main_gray">#666666</color>
     <color name="sr_main_red">#E43420</color>
     <color name="sr_main_divider">#E5E5E5</color>
+    <color name="sr_white_gray">#AAAAAA</color>
+    <color name="sr_white_transparent">#E8E8E8</color>
 
     <!-- Google Icon Color -->
     <color name="sr_google_red">#E43E2B</color>
