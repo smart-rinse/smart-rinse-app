@@ -130,7 +130,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                     setHasFixedSize(true)
                 }
                 laundryViewModel.listDataLaundryService.observe(this@LaundryDetailActivity) { listData ->
-                    binding.rvLaundryService.adapter = listData?.let { LaundryAdapter(it) }
+                    binding.rvLaundryService.adapter = listData?.let { LaundryAdapter(it, binding) }
                 }
                 laundryViewModel.isLoading.observe(this@LaundryDetailActivity) { load ->
                     showLoading(load)

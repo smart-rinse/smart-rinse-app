@@ -71,7 +71,9 @@ data class ServicesItem(
 	val id: Int,
 
 	@field:SerializedName("jenis_service")
-	val jenisService: String
+	val jenisService: String,
+
+	var itemCount: Int  // Menyimpan jumlah item belanja
 )
 
 data class ReviewsItem(
