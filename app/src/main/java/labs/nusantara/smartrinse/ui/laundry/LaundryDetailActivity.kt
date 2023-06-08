@@ -46,6 +46,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
         val laundryId = intent.getStringExtra(EXTRA_LAUNDRYDETAIL)
 
         if (laundryId != null) {
+            resetData()
             loadData(laundryId)
             valueLaundryId = laundryId
         }
@@ -67,9 +68,15 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
+    private fun resetData() {
+        laundryViewModel.listDataLaundry.value = null
+        laundryViewModel.listDataLaundryService.value = null
+        laundryViewModel.listDataLaundryReview.value = null
+    }
+
     private fun shareContent() {
         laundryViewModel.listDataLaundry.observe(this@LaundryDetailActivity) { listData ->
-            val data = listData.firstOrNull()
+            val data = listData?.firstOrNull()
             if (data != null) {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/plain"
@@ -153,7 +160,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
             showLoading(load)
         }
         laundryViewModel.listDataLaundry.observe(this@LaundryDetailActivity) { listData ->
-            val data = listData.firstOrNull()
+            val data = listData?.firstOrNull()
             if (data != null) {
                 if (data.photo.isNotEmpty()) {
                     Glide.with(this@LaundryDetailActivity)
@@ -165,9 +172,12 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 binding.tvMerchantAddress.text = data.alamat
                 binding.tvMerchantRating.text = "${data.averageRating}"
                 binding.tvRatingCount.text = "(${data.countReviews} Reviews)"
+
                 val ratingBar = binding.ratingMerchant
                 val rating = data.averageRating.toFloat()
-                ratingBar.rating = rating
+
+                val roundedRating = (rating * 2)/ 2.0f
+                ratingBar.rating = roundedRating
 
                 noWhatsapp = "62xxxxxxxxxxx"
             }

@@ -13,7 +13,7 @@ import labs.nusantara.smartrinse.utils.SessionModel
 
 class LaundryDetailViewModel (private val repository: LaundryRepository) : ViewModel() {
 
-    val listDataLaundry: LiveData<List<Laundry>> = repository.listLaundryDetail
+    val listDataLaundry: MutableLiveData<List<Laundry>?> = repository.listLaundryDetail
     val listDataLaundryService: MutableLiveData<List<ServicesItem>?> = repository.listLaundryService
     val listDataLaundryReview: MutableLiveData<List<ReviewsItem>?> = repository.listLaundryReviews
     val isLoading: LiveData<Boolean> = repository.isLoading

@@ -50,8 +50,8 @@ class LaundryRepository private constructor(
     private val _listFaqItem = MutableLiveData<List<FaqItem>>()
     val listFaqItem: LiveData<List<FaqItem>> = _listFaqItem
 
-    private val _listLaundryDetail = MutableLiveData<List<Laundry>>()
-    val listLaundryDetail: LiveData<List<Laundry>> = _listLaundryDetail
+    private val _listLaundryDetail = MutableLiveData<List<Laundry>?>()
+    val listLaundryDetail: MutableLiveData<List<Laundry>?> = _listLaundryDetail
 
     private val _listLaundryService = MutableLiveData<List<ServicesItem>?>()
     val listLaundryService: MutableLiveData<List<ServicesItem>?> = _listLaundryService

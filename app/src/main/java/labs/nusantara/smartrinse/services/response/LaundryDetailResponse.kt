@@ -35,7 +35,7 @@ data class Laundry(
 	val photo: String,
 
 	@field:SerializedName("average_rating")
-	val averageRating: Int,
+	val averageRating: Double,
 
 	@field:SerializedName("tanggal_berdiri")
 	val tanggalBerdiri: String,
