@@ -9,15 +9,25 @@ import labs.nusantara.smartrinse.services.response.LaundryItem
 import labs.nusantara.smartrinse.services.response.LaundryRecomendationItem
 import labs.nusantara.smartrinse.utils.SessionModel
 
-class HomeViewModel (private val repository: LaundryRepository) : ViewModel() {
+class HomeViewModel(private val repository: LaundryRepository) : ViewModel() {
 
     val listDataLaundry: LiveData<List<LaundryItem>> = repository.listLaundryItem
     val listDataRecLaundry: LiveData<List<LaundryRecomendationItem>> = repository.listLaundryRecItem
     val isLoading: LiveData<Boolean> = repository.isLoading
     val isRecLoading: LiveData<Boolean> = repository.isRecLoading
 
+    private var currentAddress: String? = null
+
     fun getSession(): LiveData<SessionModel> {
         return repository.getSession()
+    }
+
+    fun getCurrentAddress(): String? {
+        return currentAddress
+    }
+
+    fun setCurrentAddress(address: String?) {
+        currentAddress = address
     }
 
     fun getDataLaundry(token: String) {

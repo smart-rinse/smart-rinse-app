@@ -49,7 +49,7 @@ class ArticleFragment : Fragment() {
     private fun loadCategory(category: String) {
         Log.d("Category : ", category)
         articleViewModel.listDataArticle.observe(viewLifecycleOwner) { listData ->
-            if (category == "All Category") {
+            if (category == "All") {
                 binding.rvArticle.adapter = ArticleAdapter(listData)
             } else {
                 val filteredList = listData.filter { article ->

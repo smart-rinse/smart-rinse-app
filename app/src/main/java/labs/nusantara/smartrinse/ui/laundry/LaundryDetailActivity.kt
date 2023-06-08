@@ -84,6 +84,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
 
     private fun loadReviews() {
         binding.rvLaundryReviews.visibility = View.VISIBLE
+        binding.layoutAddReview.visibility = View.VISIBLE
         binding.rvLaundryService.visibility = View.GONE
         laundryViewModel.getSession().observe(this@LaundryDetailActivity) { session ->
             token = session.token
@@ -109,6 +110,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
     private fun loadService() {
         binding.rvLaundryService.visibility = View.VISIBLE
         binding.rvLaundryReviews.visibility = View.GONE
+        binding.layoutAddReview.visibility = View.GONE
         laundryViewModel.getSession().observe(this@LaundryDetailActivity) { session ->
             token = session.token
             val tokenAuth = session.token
