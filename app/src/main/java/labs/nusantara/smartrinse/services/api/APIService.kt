@@ -75,4 +75,11 @@ interface APIService {
         @Part("gender") gender: RequestBody,
         @Part photo: MultipartBody.Part,
     ): Call<UserDetailResponse>
+
+    @POST("transaction/{laundryId}")
+    fun postTransaction(
+        @Header("Authorization") token: String,
+        @Path("laundryId") laundryId: String,
+        @Body request: RequestBody
+    ): Call<TransactionResponse>
 }

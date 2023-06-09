@@ -143,24 +143,29 @@ class HomeFragment : Fragment() {
 
 
     private fun reverseGeocode(latitude: Double, longitude: Double): String? {
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val addresses: List<Address>?
-
         try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 1)
-            Log.d("A", addresses.toString())
-            if (addresses != null && addresses.isNotEmpty()) {
-                val address = addresses[0]
-                // Format the address components as per your requirement
-                val addressLine = address.getAddressLine(0)
-                val local = address.locality
-                val subAdmin = address.subAdminArea
-                val state = address.adminArea
-                val country = address.countryName
-                val postalCode = address.postalCode
-                return local
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            val addresses: List<Address>?
+
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1)
+                Log.d("A", addresses.toString())
+                if (addresses != null && addresses.isNotEmpty()) {
+                    val address = addresses[0]
+                    // Format the address components as per your requirement
+                    val addressLine = address.getAddressLine(0)
+                    val local = address.locality
+                    val subAdmin = address.subAdminArea
+                    val state = address.adminArea
+                    val country = address.countryName
+                    val postalCode = address.postalCode
+                    return local
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
+
+        } catch (e: Exception){
             e.printStackTrace()
         }
 

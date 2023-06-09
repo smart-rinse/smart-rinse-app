@@ -16,9 +16,12 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.gson.Gson
 import labs.nusantara.smartrinse.databinding.ActivityLaundryBinding
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 
 class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
 
@@ -66,6 +69,33 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 "Reviews" -> loadReviews()
             }
         }
+
+        binding.btnProcess.setOnClickListener {
+            laundryViewModel.getSession().observe(this@LaundryDetailActivity) { session ->
+                token = session.token
+                val tokenAuth = session.token
+
+                val selectedItems = (binding.rvLaundryService.adapter as? LaundryAdapter)?.getSelectedItems()
+
+                val convertedList = selectedItems?.map {
+                    mapOf(
+                        "serviceId" to it.serviceId.toInt(),
+                        "quantity" to it.quantity
+                    )
+                }
+
+                val convertedJson = Gson().toJson(mapOf("serviceData" to convertedList))
+
+                val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), convertedJson)
+                Log.d("JSON Data : ", convertedJson.toString())
+                Log.d("TOKEN DATA : ", tokenAuth)
+                Log.d("REQ : ", requestBody.toString())
+                if (laundryId != null) {
+                    laundryViewModel.postTransaction(tokenAuth, laundryId, convertedJson)
+                }
+            }
+        }
+
     }
 
     private fun resetData() {

@@ -10,6 +10,7 @@ import labs.nusantara.smartrinse.services.response.*
 import labs.nusantara.smartrinse.utils.Event
 import labs.nusantara.smartrinse.utils.SessionModel
 import labs.nusantara.smartrinse.utils.SessionPreferences
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -62,6 +63,9 @@ class LaundryRepository private constructor(
     private val _changePasswordResponse = MutableLiveData<UserPasswordResponse>()
 
     private val _changeProfileResponse = MutableLiveData<UserDetailResponse>()
+
+    private val _trxResponse = MutableLiveData<TransactionResponse>()
+    val trxResponse: LiveData<TransactionResponse> = _trxResponse
 
 
     fun postRegister(name: String, email: String, password: String, confPassword: String) {
@@ -391,6 +395,7 @@ class LaundryRepository private constructor(
                 response: Response<UserDetailResponse>
             ) {
                 _isLoading.value = false
+                Log.d("ResponseChangessss : ", response.toString())
                 Log.d("ResponseChange : ", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     _changeProfileResponse.value = response.body()
@@ -438,6 +443,35 @@ class LaundryRepository private constructor(
             override fun onFailure(call: Call<FaqResponse>, t: Throwable) {
                 _isLoading.value = false
                 _toastText.value = Event("No internet connection")
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun postTransactionOrder(token: String, laundryId: String, requestBody: String) {
+        _isLoading.value = true
+        val dataConvert = RequestBody.create("application/json".toMediaTypeOrNull(), requestBody)
+
+        val client = apiService.postTransaction(token, laundryId, dataConvert)
+        client.enqueue(object : Callback<TransactionResponse> {
+            override fun onResponse(call: Call<TransactionResponse>, response: Response<TransactionResponse>) {
+                _isLoading.value = false
+                Log.d("RESP : ", response.toString())
+                Log.d("RESPBDY : ", response.body().toString())
+                if (response.isSuccessful && response.body() != null) {
+                    _trxResponse.value = response.body()
+                    _toastText.value = Event(response.body()?.message.toString())
+                } else {
+                    _toastText.value = Event("Process Failed")
+                    val errorMessage = response.message() ?: ""
+                    val responseBody = response.body()?.message.toString()
+                    Log.e(TAG, "ErrorMessage: $errorMessage, $responseBody")
+                }
+            }
+
+            override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
             }
         })

@@ -40,4 +40,10 @@ class LaundryDetailViewModel (private val repository: LaundryRepository) : ViewM
         }
     }
 
+    fun postTransaction(token: String, laundryId: String, requestBody: String) {
+        viewModelScope.launch {
+            repository.postTransactionOrder(token, laundryId, requestBody)
+        }
+    }
+
 }
