@@ -36,6 +36,9 @@ class LaundryRepository private constructor(
     private val _toastText = MutableLiveData<Event<String>>()
     val toastText: LiveData<Event<String>> = _toastText
 
+    private val _idText = MutableLiveData<Event<String>>()
+    val idText: LiveData<Event<String>> = _idText
+
     private val _listArticleItem = MutableLiveData<List<ArticleItem>>()
     val listArticleItem: LiveData<List<ArticleItem>> = _listArticleItem
 
@@ -67,6 +70,14 @@ class LaundryRepository private constructor(
     private val _trxResponse = MutableLiveData<TransactionResponse>()
     val trxResponse: LiveData<TransactionResponse> = _trxResponse
 
+    private val _listHistoryItem = MutableLiveData<List<UserTransactionItem>>()
+    val listHistoryItem: LiveData<List<UserTransactionItem>> = _listHistoryItem
+
+    private val _listDetailTransaction = MutableLiveData<List<UserTransactionDetail>>()
+    val listDetailTransaction: LiveData<List<UserTransactionDetail>> = _listDetailTransaction
+
+    private val _listDetailService = MutableLiveData<List<UserTransactionDetailServicesItem>?>()
+    val listDetailService: LiveData<List<UserTransactionDetailServicesItem>?> = _listDetailService
 
     fun postRegister(name: String, email: String, password: String, confPassword: String) {
         _isLoading.value = true
@@ -461,6 +472,7 @@ class LaundryRepository private constructor(
                 if (response.isSuccessful && response.body() != null) {
                     _trxResponse.value = response.body()
                     _toastText.value = Event(response.body()?.message.toString())
+                    _idText.value = Event(response.body()?.transaction?.id.toString())
                 } else {
                     _toastText.value = Event("Process Failed")
                     val errorMessage = response.message() ?: ""
@@ -477,6 +489,70 @@ class LaundryRepository private constructor(
         })
     }
 
+    fun getHistorySimple(token: String) {
+        Log.d("RESPONSE:", token)
+        _isLoading.value = true
+        val client = apiService.getAllTransaction(token)
+        client.enqueue(object : Callback<UserAllTransactionResponse> {
+            @SuppressLint("NullSafeMutableLiveData")
+            override fun onResponse(
+                call: Call<UserAllTransactionResponse>,
+                response: Response<UserAllTransactionResponse>
+            ) {
+                _isLoading.value = false
+                val listData = response.body()?.userTransaction
+                if (response.isSuccessful) {
+                    if (listData.isNullOrEmpty()) {
+                        _toastText.value = Event("Transaksi tidak ditemukan")
+                    } else {
+                        _listHistoryItem.value = listData
+                    }
+                } else {
+                    _toastText.value = Event(response.message())
+                    Log.e(TAG, "ErrorMessage: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserAllTransactionResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = Event("No internet connection")
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getServiceDetail(token: String, idTrx: String) {
+        Log.d("RESPONSE:", token)
+        _isLoading.value = true
+        val client = apiService.getDetailTransaction(token, idTrx)
+        client.enqueue(object : Callback<UserTransactionDetailResponse> {
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<UserTransactionDetailResponse>,
+                response: Response<UserTransactionDetailResponse>
+            ) {
+                _isLoading.value = false
+                Log.d("ResponseTRX : ", response.body().toString())
+                if (response.isSuccessful) {
+                    val laundryDetail = response.body()?.transaction
+                    val serviceDetail = response.body()?.transaction?.services
+                    if (laundryDetail != null && serviceDetail != null) {
+                        _listDetailTransaction.value = listOf(laundryDetail)
+                        _listDetailService.value = serviceDetail
+                    } else {
+                        _toastText.value = Event("Transaction not found")
+                    }
+                } else {
+                    _isLoading.value = false
+                    Log.e("MainViewModel", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserTransactionDetailResponse>, t: Throwable) {
+                Log.e("MainViewModel", "onFailure: ${t.message}")
+            }
+        })
+    }
     fun getSession(): LiveData<SessionModel> {
         return preferences.getSession().asLiveData()
     }

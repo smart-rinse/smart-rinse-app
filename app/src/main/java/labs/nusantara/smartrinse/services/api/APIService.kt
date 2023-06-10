@@ -82,4 +82,15 @@ interface APIService {
         @Path("laundryId") laundryId: String,
         @Body request: RequestBody
     ): Call<TransactionResponse>
+
+    @GET("transaction")
+    fun getAllTransaction(
+        @Header("Authorization") token: String
+    ): Call<UserAllTransactionResponse>
+
+    @GET("transaction/{id}")
+    fun getDetailTransaction(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+    ): Call<UserTransactionDetailResponse>
 }

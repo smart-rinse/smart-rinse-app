@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.gson.Gson
 import labs.nusantara.smartrinse.databinding.ActivityLaundryBinding
+import labs.nusantara.smartrinse.ui.invoice.InvoiceActivity
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -92,6 +93,18 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 Log.d("REQ : ", requestBody.toString())
                 if (laundryId != null) {
                     laundryViewModel.postTransaction(tokenAuth, laundryId, convertedJson)
+
+                    showLoading(true)
+
+                    // Get ID Transaction
+                    laundryViewModel.idText.observe(this) { event ->
+                        event.getContentIfNotHandled()?.let { idText ->
+                            val intent = Intent(this, InvoiceActivity::class.java)
+                            intent.putExtra(InvoiceActivity.EXTRA_ID, idText)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
                 }
             }
         }

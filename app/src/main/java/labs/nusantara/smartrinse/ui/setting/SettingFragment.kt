@@ -139,7 +139,7 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
     }
 
     private fun showListSetting() {
-        val items = arrayOf("Change Password", "FAQ", "Dark Mode", "About Application", "Logout")
+        val items = arrayOf("Change Password", "FAQ", "About Application", "Logout")
         val adapter = SettingAdapter(requireContext(), items)
         binding.listView.adapter = adapter
         binding.listView.onItemClickListener = this
@@ -154,12 +154,9 @@ class SettingFragment : Fragment(), AdapterView.OnItemClickListener {
                 startActivity(Intent(requireContext(), FaqActivity::class.java))
             }
             2 -> {
-                Toast.makeText(requireContext(), "Coming soon", Toast.LENGTH_SHORT).show()
-            }
-            3 -> {
                 infoApplication()
             }
-            4 -> {
+            3 -> {
                 logoutConfirmation()
             }
         }

@@ -9,6 +9,7 @@ import labs.nusantara.smartrinse.repository.LaundryRepository
 import labs.nusantara.smartrinse.services.response.Laundry
 import labs.nusantara.smartrinse.services.response.ReviewsItem
 import labs.nusantara.smartrinse.services.response.ServicesItem
+import labs.nusantara.smartrinse.utils.Event
 import labs.nusantara.smartrinse.utils.SessionModel
 
 class LaundryDetailViewModel (private val repository: LaundryRepository) : ViewModel() {
@@ -17,6 +18,8 @@ class LaundryDetailViewModel (private val repository: LaundryRepository) : ViewM
     val listDataLaundryService: MutableLiveData<List<ServicesItem>?> = repository.listLaundryService
     val listDataLaundryReview: MutableLiveData<List<ReviewsItem>?> = repository.listLaundryReviews
     val isLoading: LiveData<Boolean> = repository.isLoading
+    val toastText: LiveData<Event<String>> = repository.toastText
+    val idText: LiveData<Event<String>> = repository.idText
 
     fun getSession(): LiveData<SessionModel> {
         return repository.getSession()

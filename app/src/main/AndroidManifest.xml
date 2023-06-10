@@ -18,9 +18,16 @@
         android:theme="@style/Theme.SmartRinse"
         tools:targetApi="31">
         <activity
-            android:name=".ui.laundry.LaundryDetailActivity"
-            android:theme="@style/Theme.SmartRinse.NoActionbar"
+            android:name=".ui.invoice.InvoiceActivity"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.laundry.LaundryDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SmartRinse.NoActionbar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

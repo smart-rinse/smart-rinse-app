@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import labs.nusantara.smartrinse.repository.LaundryRepository
 import labs.nusantara.smartrinse.ui.article.ArticleViewModel
 import labs.nusantara.smartrinse.ui.faq.FaqViewModel
+import labs.nusantara.smartrinse.ui.history.HistoryViewModel
 import labs.nusantara.smartrinse.ui.home.HomeViewModel
+import labs.nusantara.smartrinse.ui.invoice.InvoiceViewModel
 import labs.nusantara.smartrinse.ui.laundry.LaundryDetailViewModel
 import labs.nusantara.smartrinse.ui.login.LoginViewModel
 import labs.nusantara.smartrinse.ui.register.RegisterViewModel
@@ -38,6 +40,12 @@ class ViewModelFactory(private val repository: LaundryRepository) :
             }
             modelClass.isAssignableFrom(LaundryDetailViewModel::class.java) -> {
                 LaundryDetailViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(InvoiceViewModel::class.java) -> {
+                InvoiceViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

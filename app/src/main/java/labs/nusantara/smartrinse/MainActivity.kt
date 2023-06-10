@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import labs.nusantara.smartrinse.databinding.ActivityHomeBinding
 import labs.nusantara.smartrinse.ui.article.ArticleFragment
+import labs.nusantara.smartrinse.ui.history.HistoryFragment
 import labs.nusantara.smartrinse.ui.home.HomeFragment
 import labs.nusantara.smartrinse.ui.setting.SettingFragment
 
@@ -25,9 +26,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.navHome -> replaceFragment(HomeFragment())
                 R.id.navArticle -> replaceFragment(ArticleFragment())
-                R.id.navHistory -> {
-                    Toast.makeText(this, "Feature Coming Soon", Toast.LENGTH_SHORT).show()
-                }
+                R.id.navHistory -> replaceFragment(HistoryFragment())
                 R.id.navFavorite -> {
                     Toast.makeText(this, "Feature Coming Soon", Toast.LENGTH_SHORT).show()
                 }

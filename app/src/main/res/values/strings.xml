@@ -10,7 +10,7 @@
     <string name="chat">Chat</string>
     <string name="setting">Account</string>
     <string name="camera">Camera</string>
-    <string name="history">Order History</string>
+    <string name="history">History</string>
     <string name="favorite">Favorite</string>
 
     <!-- Login - Register -->
@@ -111,4 +111,29 @@
     <string name="tips">Tips</string>
     <string name="laundry">Laundry</string>
     <string name="business">Business</string>
+
+    <!--  History  -->
+    <string name="history_image">Image History</string>
+    <string name="history_idtrx">Id Trx</string>
+    <string name="history_date">0000-00-00</string>
+    <string name="history_total">0</string>
+    <string name="history_status">-</string>
+
+    <!-- Invoice -->
+    <string name="invoice_success">Transaction Success</string>
+    <string name="invoice_label_order_information">Order Information</string>
+    <string name="invoice_label_order_id">ID:</string>
+    <string name="invoice_tv_order_id">X-XXXX</string>
+    <string name="invoice_label_tgl_trx">Date</string>
+    <string name="invoice_tv_tgl_trx">DD-MM-YYYY</string>
+    <string name="invoice_label_merchant">Merchant</string>
+    <string name="invoice_tv_merchant">-</string>
+    <string name="invoice_label_rekening">Account</string>
+    <string name="invoice_tv_rekening_number">000-000-000</string>
+    <string name="invoice_label_detail_service">Detail Service</string>
+    <string name="invoice_item_name">-</string>
+    <string name="invoice_item_sub">-</string>
+    <string name="invoice_item_total">-</string>
+    <string name="invoice_label_total">TOTAL</string>
+    <string name="invoice_tv_total_price">-</string>
 </resources>
