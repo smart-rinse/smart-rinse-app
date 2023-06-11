@@ -79,6 +79,9 @@ class LaundryRepository private constructor(
     private val _listDetailService = MutableLiveData<List<UserTransactionDetailServicesItem>?>()
     val listDetailService: LiveData<List<UserTransactionDetailServicesItem>?> = _listDetailService
 
+    private val _listSearchLaundry = MutableLiveData<List<SearchLaundryItem>>()
+    val listSearchLaundry: LiveData<List<SearchLaundryItem>> = _listSearchLaundry
+
     fun postRegister(name: String, email: String, password: String, confPassword: String) {
         _isLoading.value = true
         val client = apiService.postRegister(name, email, password, confPassword)
@@ -553,6 +556,38 @@ class LaundryRepository private constructor(
             }
         })
     }
+
+    fun getLaundry(query: String?) {
+        _isLoading.value = true
+        val client = apiService.getSearchLaundry(query)
+        client.enqueue(object : Callback<SearchLaundryResponse> {
+            @SuppressLint("NullSafeMutableLiveData")
+            override fun onResponse(
+                call: Call<SearchLaundryResponse>,
+                response: Response<SearchLaundryResponse>
+            ) {
+                _isLoading.value = false
+                val listSearch = response.body()?.laundry
+                if (response.isSuccessful) {
+                    if (listSearch.isNullOrEmpty()) {
+                        _toastText.value = Event("Laundry not found")
+                    } else {
+                        _listSearchLaundry.value = listSearch
+                    }
+                } else {
+                    _toastText.value = Event(response.message())
+                    Log.e(TAG, "Error: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<SearchLaundryResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = Event("No internet connection")
+                Log.e(TAG, "Error: ${t.message.toString()}")
+            }
+        })
+    }
+
     fun getSession(): LiveData<SessionModel> {
         return preferences.getSession().asLiveData()
     }
