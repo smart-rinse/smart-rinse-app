@@ -7,12 +7,14 @@ import kotlinx.coroutines.launch
 import labs.nusantara.smartrinse.repository.LaundryRepository
 import labs.nusantara.smartrinse.services.response.LaundryItem
 import labs.nusantara.smartrinse.services.response.LaundryRecomendationItem
+import labs.nusantara.smartrinse.services.response.SearchLaundryItem
 import labs.nusantara.smartrinse.utils.SessionModel
 
 class HomeViewModel(private val repository: LaundryRepository) : ViewModel() {
 
     val listDataLaundry: LiveData<List<LaundryItem>> = repository.listLaundryItem
     val listDataRecLaundry: LiveData<List<LaundryRecomendationItem>> = repository.listLaundryRecItem
+    val listDataLaundrySearch: LiveData<List<SearchLaundryItem>> = repository.listSearchLaundry
     val isLoading: LiveData<Boolean> = repository.isLoading
     val isRecLoading: LiveData<Boolean> = repository.isRecLoading
 
@@ -39,6 +41,12 @@ class HomeViewModel(private val repository: LaundryRepository) : ViewModel() {
     fun getDataLaundrySentiment(token: String) {
         viewModelScope.launch {
             repository.getLaundrySentiment(token)
+        }
+    }
+
+    fun getSearchLaundry(query: String) {
+        viewModelScope.launch {
+            repository.getLaundry(query)
         }
     }
 }

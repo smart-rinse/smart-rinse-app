@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toStartOf="@id/iv_pinmap"/>
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/sv_user"
+        android:id="@+id/sv_laundry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -99,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sv_user">
+        app:layout_constraintTop_toBottomOf="@id/sv_laundry">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

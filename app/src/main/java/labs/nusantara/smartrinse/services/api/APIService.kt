@@ -93,4 +93,9 @@ interface APIService {
         @Header("Authorization") token: String,
         @Path("id") id: String,
     ): Call<UserTransactionDetailResponse>
+
+    @GET("search")
+    fun getSearchLaundry(
+        @Query("keyword") keyword: String?
+    ): Call<SearchLaundryResponse>
 }

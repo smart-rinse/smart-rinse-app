@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -56,8 +57,31 @@ class HomeFragment : Fragment() {
         }
 
         loadData()
-
+        searchData()
         setLocationMap()
+    }
+
+    private fun searchData() {
+        binding.svLaundry.apply {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    Log.d("Masuk Search :", query.toString())
+                    if (query != null) {
+                        loadSearch(query)
+                    } else {
+                        loadData()
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrEmpty()) {
+                        loadData() // Load default data when the search query is empty
+                    }
+                    return true
+                }
+            })
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -164,15 +188,50 @@ class HomeFragment : Fragment() {
                 e.printStackTrace()
             }
 
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
         return null
     }
 
+    private fun loadSearch(keyword: String) {
+        // Reset the RecyclerView adapters
+        binding.labelRecLaundry.visibility = View.GONE
+        binding.rvRecLaundry.adapter = null
+        binding.rvLaundry.adapter = null
+
+        homeViewModel.getSession().observe(viewLifecycleOwner) { session ->
+            val name = session.name
+            loadSay(name)
+            token = session.token
+            val tokenAuth = session.token
+            if (!session.isLogin) {
+                backLogin()
+            } else {
+                // Get All Laundry
+                homeViewModel.getSearchLaundry(keyword)
+                binding.rvLaundry.apply {
+                    layoutManager = GridLayoutManager(requireContext(), 2)
+                    setHasFixedSize(true)
+                }
+                homeViewModel.listDataLaundrySearch.observe(viewLifecycleOwner) { listData ->
+                    Log.d("List : ", listData.toString())
+                    binding.rvLaundry.adapter = HomeSearchAdapter(listData)
+                }
+                homeViewModel.isLoading.observe(viewLifecycleOwner) { load ->
+                    showLoading(load)
+                }
+            }
+        }
+    }
 
     private fun loadData() {
+        // Reset the RecyclerView adapters
+        binding.labelRecLaundry.visibility = View.VISIBLE
+        binding.rvRecLaundry.adapter = null
+        binding.rvLaundry.adapter = null
+
         homeViewModel.getSession().observe(viewLifecycleOwner) { session ->
             val name = session.name
             loadSay(name)
