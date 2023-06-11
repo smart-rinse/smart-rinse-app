@@ -49,6 +49,9 @@ data class UserTransactionDetail(
 	@field:SerializedName("nama_laundry")
 	val namaLaundry: String,
 
+	@field:SerializedName("status")
+	val status: String,
+
 	@field:SerializedName("totalCost")
 	val totalCost: Int
 )

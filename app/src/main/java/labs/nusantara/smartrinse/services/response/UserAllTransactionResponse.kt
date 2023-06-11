@@ -25,6 +25,9 @@ data class UserTransactionItem(
 	@field:SerializedName("totalCost")
 	val totalCost: Int,
 
+	@field:SerializedName("status")
+	val status: String,
+
 	@field:SerializedName("idTransaction")
 	val idTransaction: String
 )

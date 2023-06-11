@@ -113,6 +113,7 @@
     <string name="business">Business</string>
 
     <!--  History  -->
+    <string name="history_label">Order History</string>
     <string name="history_image">Image History</string>
     <string name="history_idtrx">Id Trx</string>
     <string name="history_date">0000-00-00</string>
