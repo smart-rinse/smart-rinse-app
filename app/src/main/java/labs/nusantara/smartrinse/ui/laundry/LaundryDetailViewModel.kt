@@ -49,4 +49,16 @@ class LaundryDetailViewModel (private val repository: LaundryRepository) : ViewM
         }
     }
 
+    fun postFavorite(token: String, laundryId: String) {
+        viewModelScope.launch {
+            repository.postFavorite(token, laundryId)
+        }
+    }
+
+    fun delFavorite(token: String, laundryId: String) {
+        viewModelScope.launch {
+            repository.delFavorite(token, laundryId)
+        }
+    }
+
 }

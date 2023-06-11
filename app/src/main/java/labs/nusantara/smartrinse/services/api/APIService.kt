@@ -98,4 +98,21 @@ interface APIService {
     fun getSearchLaundry(
         @Query("keyword") keyword: String?
     ): Call<SearchLaundryResponse>
+
+    @GET("favorite/laundry")
+    fun getFavoriteLaundry(
+        @Header("Authorization") token: String
+    ): Call<FavoriteGetResponse>
+
+    @POST("favorite/{laundryId}")
+    fun postFavoriteLaundry(
+        @Header("Authorization") token: String,
+        @Path("laundryId") laundryId: String,
+    ): Call<FavoritePostResponse>
+
+    @DELETE("favorite/delete/{laundryId}")
+    fun delFavoriteLaundry(
+        @Header("Authorization") token: String,
+        @Path("laundryId") laundryId: String,
+    ): Call<FavoriteDelResponse>
 }

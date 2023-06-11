@@ -116,9 +116,19 @@
     <string name="history_label">Order History</string>
     <string name="history_image">Image History</string>
     <string name="history_idtrx">Id Trx</string>
-    <string name="history_date">0000-00-00</string>
+    <string name="history_date">-</string>
     <string name="history_total">0</string>
     <string name="history_status">-</string>
+
+    <!--  Favorite  -->
+    <string name="favorite_label">Favorite Laundry</string>
+    <string name="favorite_thumbnail">Image Laundry</string>
+    <string name="favorite_image">-</string>
+    <string name="favorite_name">-</string>
+    <string name="favorite_address">-</string>
+    <string name="favorite_open">-</string>
+    <string name="favorite_close">-</string>
+    <string name="favorite_sad">You don\'t have a favorites list</string>
 
     <!-- Invoice -->
     <string name="invoice_success">Transaction Success</string>
@@ -130,7 +140,7 @@
     <string name="invoice_label_merchant">Merchant</string>
     <string name="invoice_tv_merchant">-</string>
     <string name="invoice_label_rekening">Account</string>
-    <string name="invoice_tv_rekening_number">000-000-000</string>
+    <string name="invoice_tv_rekening_number">-</string>
     <string name="invoice_label_detail_service">Detail Service</string>
     <string name="invoice_item_name">-</string>
     <string name="invoice_item_sub">-</string>

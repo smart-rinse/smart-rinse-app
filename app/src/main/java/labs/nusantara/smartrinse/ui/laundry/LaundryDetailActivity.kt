@@ -12,12 +12,15 @@ import android.view.View.OnClickListener
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.gson.Gson
+import labs.nusantara.smartrinse.R
 import labs.nusantara.smartrinse.databinding.ActivityLaundryBinding
+import labs.nusantara.smartrinse.ui.favorite.FavoriteViewModel
 import labs.nusantara.smartrinse.ui.invoice.InvoiceActivity
 import labs.nusantara.smartrinse.ui.login.LoginActivity
 import labs.nusantara.smartrinse.utils.ViewModelFactory
@@ -29,10 +32,12 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityLaundryBinding
     private lateinit var factory: ViewModelFactory
     private val laundryViewModel: LaundryDetailViewModel by viewModels { factory }
+    private val favoriteViewModel: FavoriteViewModel by viewModels { factory }
     private var token: String? = null
     private var valueLaundryId: String? = null
     private var noWhatsapp: String? = null
     private val animationDuration = 200L
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +81,8 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 token = session.token
                 val tokenAuth = session.token
 
-                val selectedItems = (binding.rvLaundryService.adapter as? LaundryAdapter)?.getSelectedItems()
+                val selectedItems =
+                    (binding.rvLaundryService.adapter as? LaundryAdapter)?.getSelectedItems()
 
                 val convertedList = selectedItems?.map {
                     mapOf(
@@ -87,7 +93,8 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
 
                 val convertedJson = Gson().toJson(mapOf("serviceData" to convertedList))
 
-                val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), convertedJson)
+                val requestBody =
+                    RequestBody.create("application/json".toMediaTypeOrNull(), convertedJson)
                 Log.d("JSON Data : ", convertedJson.toString())
                 Log.d("TOKEN DATA : ", tokenAuth)
                 Log.d("REQ : ", requestBody.toString())
@@ -107,6 +114,49 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                     }
                 }
             }
+        }
+
+        binding.imgFavorite.setOnClickListener {
+            laundryViewModel.getSession().observe(this@LaundryDetailActivity) { session ->
+                token = session.token
+                val tokenAuth = session.token
+                if (!session.isLogin) {
+                    backLogin()
+                } else {
+                    // Check if the laundry is in favorite list
+                    if (isFavorite) {
+                        try {
+                            if (laundryId != null) {
+                                laundryViewModel.delFavorite(tokenAuth, laundryId)
+                                isFavorite = false
+                                binding.imgFavorite.setImageResource(R.drawable.ic_bookmark_outline)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        try {
+                            if (laundryId != null) {
+                                laundryViewModel.postFavorite(tokenAuth, laundryId)
+                                isFavorite = true
+                                binding.imgFavorite.setImageResource(R.drawable.ic_bookmark_favorite)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+
+                    // Get Notification
+                    favoriteViewModel.toastText.observe(this@LaundryDetailActivity) {
+                        it.getContentIfNotHandled()?.let { toastText ->
+                            Toast.makeText(
+                                this, toastText, Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            }
+
         }
 
     }
@@ -197,6 +247,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 Log.d("Error: ", "Error fetching data")
             } else {
                 laundryViewModel.getDataLaundryDetail(tokenAuth, laundryId)
+                favoriteViewModel.getFavorite(tokenAuth)
             }
         }
         laundryViewModel.isLoading.observe(this@LaundryDetailActivity) { load ->
@@ -219,11 +270,24 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 val ratingBar = binding.ratingMerchant
                 val rating = data.averageRating.toFloat()
 
-                val roundedRating = (rating * 2)/ 2.0f
+                val roundedRating = (rating * 2) / 2.0f
                 ratingBar.rating = roundedRating
 
                 noWhatsapp = "62xxxxxxxxxxx"
             }
+        }
+        // Check if the laundry is in favorite list
+        favoriteViewModel.listDataFavoriteLaundry.removeObservers(this@LaundryDetailActivity)
+        favoriteViewModel.listDataFavoriteLaundry.observe(this@LaundryDetailActivity) { favorites ->
+            val favoriteCek = favorites.find { it.id == laundryId }
+            isFavorite = favoriteCek != null
+            val favoriteImageResource = if (isFavorite) {
+                R.drawable.ic_bookmark_favorite
+            } else {
+                R.drawable.ic_bookmark_outline
+            }
+            binding.imgFavorite.setImageResource(favoriteImageResource)
+
         }
     }
 

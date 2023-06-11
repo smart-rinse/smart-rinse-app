@@ -82,6 +82,15 @@ class LaundryRepository private constructor(
     private val _listSearchLaundry = MutableLiveData<List<SearchLaundryItem>>()
     val listSearchLaundry: LiveData<List<SearchLaundryItem>> = _listSearchLaundry
 
+    private val _listFavorite = MutableLiveData<List<FavoriteLaundryItem>>()
+    val listFavorite: MutableLiveData<List<FavoriteLaundryItem>> = _listFavorite
+
+    private val _postFavoriteResponse = MutableLiveData<FavoritePostResponse>()
+    val postFavoriteResponse: LiveData<FavoritePostResponse> = _postFavoriteResponse
+
+    private val _delFavoriteResponse = MutableLiveData<FavoriteDelResponse>()
+    val delFavoriteResponse: LiveData<FavoriteDelResponse> = _delFavoriteResponse
+
     fun postRegister(name: String, email: String, password: String, confPassword: String) {
         _isLoading.value = true
         val client = apiService.postRegister(name, email, password, confPassword)
@@ -584,6 +593,99 @@ class LaundryRepository private constructor(
                 _isLoading.value = false
                 _toastText.value = Event("No internet connection")
                 Log.e(TAG, "Error: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getFavorite(token: String) {
+        _isLoading.value = true
+        val client = apiService.getFavoriteLaundry(token)
+
+        client.enqueue(object : Callback<FavoriteGetResponse> {
+            @SuppressLint("NullSafeMutableLiveData")
+            override fun onResponse(
+                call: Call<FavoriteGetResponse>,
+                response: Response<FavoriteGetResponse>
+            ) {
+                _isLoading.value = false
+                val listSearch = response.body()?.laundry
+                if (response.isSuccessful) {
+                    val lengthItem = listSearch?.size
+                    if (lengthItem != null) {
+                        _listFavorite.value = listSearch
+                    } else {
+                        _toastText.value = Event("Laundry favorite not found")
+                    }
+                } else {
+                    _toastText.value = Event(response.message())
+                    Log.e(TAG, "Error: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<FavoriteGetResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = Event("No internet connection")
+                Log.e(TAG, "Error: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun postFavorite(token: String, laundryId: String) {
+        _isLoading.value = true
+        val client = apiService.postFavoriteLaundry(token, laundryId)
+
+        client.enqueue(object : Callback<FavoritePostResponse> {
+            override fun onResponse(
+                call: Call<FavoritePostResponse>,
+                response: Response<FavoritePostResponse>
+            ) {
+                _isLoading.value = false
+                Log.d("Resp : ", response.toString())
+                if (response.isSuccessful && response.body() != null) {
+                    _postFavoriteResponse.value = response.body()
+                    _toastText.value = Event(response.body()?.message.toString())
+                } else {
+                    _toastText.value = Event("Create favorite failed")
+                    Log.e(
+                        TAG,
+                        "ErrorMessage: ${response.message()}, ${response.body()?.message.toString()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<FavoritePostResponse>, t: Throwable) {
+                _toastText.value = Event(t.message.toString())
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun delFavorite(token: String, laundryId: String) {
+        _isLoading.value = true
+        val client = apiService.delFavoriteLaundry(token, laundryId)
+
+        client.enqueue(object : Callback<FavoriteDelResponse> {
+            override fun onResponse(
+                call: Call<FavoriteDelResponse>,
+                response: Response<FavoriteDelResponse>
+            ) {
+                _isLoading.value = false
+                Log.d("Resp : ", response.toString())
+                if (response.isSuccessful && response.body() != null) {
+                    _delFavoriteResponse.value = response.body()
+                    _toastText.value = Event(response.body()?.message.toString())
+                } else {
+                    _toastText.value = Event("Create favorite failed")
+                    Log.e(
+                        TAG,
+                        "ErrorMessage: ${response.message()}, ${response.body()?.message.toString()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<FavoriteDelResponse>, t: Throwable) {
+                _toastText.value = Event(t.message.toString())
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
             }
         })
     }
