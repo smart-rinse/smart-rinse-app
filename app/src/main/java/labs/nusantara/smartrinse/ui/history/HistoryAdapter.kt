@@ -16,7 +16,7 @@ import java.util.*
 class HistoryAdapter (private val listHistoryData: List<UserTransactionItem>) :
     RecyclerView.Adapter<HistoryAdapter.ListViewHolder>() {
 
-    private val sortedListHistoryData = listHistoryData.sortedBy { it.idTransaction }
+    private val sortedListHistoryData = listHistoryData.sortedByDescending { it.dateTransaction }
 
     inner class ListViewHolder(private val userBinding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(userBinding.root) {

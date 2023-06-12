@@ -17,8 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_top"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login_layout_area"
@@ -34,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageApp">
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_top">
 
         <TextView
             android:id="@+id/label_login"
@@ -125,11 +131,12 @@
             android:textSize="@dimen/text_size_14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
         <TextView
             android:id="@+id/label_register"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
@@ -138,10 +145,10 @@
             android:text="@string/register"
             android:textColor="@color/sr_main_green"
             android:textSize="@dimen/text_size_14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/label_no_account"
+            app:layout_constraintTop_toBottomOf="@id/label_no_account"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/label_no_account"
-            app:layout_constraintTop_toTopOf="@+id/label_no_account" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

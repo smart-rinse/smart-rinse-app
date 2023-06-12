@@ -17,7 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_top"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +32,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/background_rounded"
@@ -35,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageApp">
+        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_top">
 
         <TextView
             android:id="@+id/label_register"
@@ -172,6 +178,7 @@
             android:textColor="@color/sr_main_black"
             android:textSize="@dimen/text_size_14sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_register" />
 
@@ -185,9 +192,10 @@
             android:text="@string/login"
             android:textColor="@color/sr_main_green"
             android:textSize="@dimen/text_size_14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/label_has_account"
-            app:layout_constraintStart_toEndOf="@+id/label_has_account"
-            app:layout_constraintTop_toTopOf="@+id/label_has_account" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_has_account" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

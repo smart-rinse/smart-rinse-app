@@ -12,9 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
         android:contentDescription="@string/logo_smart_rinse"
         android:src="@drawable/app_name_green"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
@@ -30,7 +30,7 @@
         android:textColor="@color/sr_black"
         android:textSize="@dimen/text_size_14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/label_say_name"
@@ -49,27 +49,27 @@
         android:id="@+id/iv_pinmap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:visibility="gone"
+        android:layout_marginEnd="16dp"
         android:contentDescription="@string/logo_smart_rinse"
         android:src="@drawable/ic_pin_map"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+        app:tint="@color/sr_google_red" />
 
     <TextView
         android:id="@+id/label_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/size_8dp"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/lorem_ipsum"
         android:textSize="@dimen/text_size_12sp"
-        android:layout_marginEnd="@dimen/size_8dp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/iv_pinmap"
         app:layout_constraintBottom_toBottomOf="@id/iv_pinmap"
-        app:layout_constraintEnd_toStartOf="@id/iv_pinmap"/>
+        app:layout_constraintEnd_toStartOf="@id/iv_pinmap"
+        app:layout_constraintTop_toTopOf="@id/iv_pinmap" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/sv_laundry"
