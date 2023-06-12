@@ -91,6 +91,12 @@ class LaundryRepository private constructor(
     private val _delFavoriteResponse = MutableLiveData<FavoriteDelResponse>()
     val delFavoriteResponse: LiveData<FavoriteDelResponse> = _delFavoriteResponse
 
+    private val _postReviewLaundry = MutableLiveData<ReviewPostResponse>()
+    val postReviewLaundry: LiveData<ReviewPostResponse> = _postReviewLaundry
+
+    private val _putTrxResponse = MutableLiveData<UserTransactionDetailResponse>()
+    val putTrxResponse: LiveData<UserTransactionDetailResponse> = _putTrxResponse
+
     fun postRegister(name: String, email: String, password: String, confPassword: String) {
         _isLoading.value = true
         val client = apiService.postRegister(name, email, password, confPassword)
@@ -105,7 +111,7 @@ class LaundryRepository private constructor(
                     _regResponse.value = response.body()
                     _toastText.value = Event(response.body()?.message.toString())
                 } else {
-                    _toastText.value = Event(response.message().toString())
+                    _toastText.value = Event("Register failed, please check your form")
                     Log.e(
                         TAG,
                         "ErrorMessage: ${response.message()}, ${response.body()?.message.toString()}"
@@ -130,7 +136,7 @@ class LaundryRepository private constructor(
                 response: Response<LoginResponse>
             ) {
                 _isLoading.value = false
-                if (response.isSuccessful && response.body() != null) {
+                if (response.isSuccessful) {
                     _loginResponse.value = response.body()
                     _toastText.value = Event(response.body()?.message.toString())
                 } else {
@@ -410,7 +416,8 @@ class LaundryRepository private constructor(
             "Change: ",
             "Token: $token, userId: $userId, userTelp: $userTelp, image: $imageMultipart"
         )
-        val client = apiService.putProfUser(token, userId, userTelp, userCity, userGender, imageMultipart)
+        val client =
+            apiService.putProfUser(token, userId, userTelp, userCity, userGender, imageMultipart)
 
         client.enqueue(object : Callback<UserDetailResponse> {
             override fun onResponse(
@@ -477,13 +484,13 @@ class LaundryRepository private constructor(
 
         val client = apiService.postTransaction(token, laundryId, dataConvert)
         client.enqueue(object : Callback<TransactionResponse> {
-            override fun onResponse(call: Call<TransactionResponse>, response: Response<TransactionResponse>) {
+            override fun onResponse(
+                call: Call<TransactionResponse>,
+                response: Response<TransactionResponse>
+            ) {
                 _isLoading.value = false
-                Log.d("RESP : ", response.toString())
-                Log.d("RESPBDY : ", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     _trxResponse.value = response.body()
-                    _toastText.value = Event(response.body()?.message.toString())
                     _idText.value = Event(response.body()?.transaction?.id.toString())
                 } else {
                     _toastText.value = Event("Process Failed")
@@ -501,10 +508,34 @@ class LaundryRepository private constructor(
         })
     }
 
+    fun putTransactionOrder(token: String, trxId: String) {
+
+        val client = apiService.putTransaction(token, trxId)
+        client.enqueue(object : Callback<UserTransactionDetailResponse> {
+            override fun onResponse(
+                call: Call<UserTransactionDetailResponse>,
+                response: Response<UserTransactionDetailResponse>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    _putTrxResponse.value = response.body()
+                } else {
+                    val errorMessage = response.message() ?: ""
+                    val responseBody = response.body()?.message.toString()
+                    Log.e(TAG, "ErrorMessage: $errorMessage, $responseBody")
+                }
+            }
+
+            override fun onFailure(call: Call<UserTransactionDetailResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
     fun getHistorySimple(token: String) {
-        Log.d("RESPONSE:", token)
         _isLoading.value = true
         val client = apiService.getAllTransaction(token)
+
         client.enqueue(object : Callback<UserAllTransactionResponse> {
             @SuppressLint("NullSafeMutableLiveData")
             override fun onResponse(
@@ -514,10 +545,11 @@ class LaundryRepository private constructor(
                 _isLoading.value = false
                 val listData = response.body()?.userTransaction
                 if (response.isSuccessful) {
-                    if (listData.isNullOrEmpty()) {
-                        _toastText.value = Event("Transaksi tidak ditemukan")
-                    } else {
+                    val lengthItem = listData?.size
+                    if (lengthItem != null) {
                         _listHistoryItem.value = listData
+                    } else {
+                        _toastText.value = Event("Order history not found")
                     }
                 } else {
                     _toastText.value = Event(response.message())
@@ -684,6 +716,36 @@ class LaundryRepository private constructor(
             }
 
             override fun onFailure(call: Call<FavoriteDelResponse>, t: Throwable) {
+                _toastText.value = Event(t.message.toString())
+                Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun postReview(token: String, laundryId: String, content: String, rating: Int) {
+        _isLoading.value = true
+        val client = apiService.postReviewLaundry(token, laundryId, content, rating)
+
+        client.enqueue(object : Callback<ReviewPostResponse> {
+            override fun onResponse(
+                call: Call<ReviewPostResponse>,
+                response: Response<ReviewPostResponse>
+            ) {
+                _isLoading.value = false
+                Log.d("ReviewRESP : ", response.toString())
+                if (response.isSuccessful && response.body() != null) {
+                    _postReviewLaundry.value = response.body()
+                    _toastText.value = Event(response.body()?.message.toString())
+                } else {
+                    _toastText.value = Event("Review failed")
+                    Log.e(
+                        TAG,
+                        "ErrorMessage: ${response.message()}, ${response.body()?.message.toString()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ReviewPostResponse>, t: Throwable) {
                 _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "ErrorMessage: ${t.message.toString()}")
             }

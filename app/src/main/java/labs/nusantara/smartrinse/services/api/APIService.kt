@@ -83,6 +83,12 @@ interface APIService {
         @Body request: RequestBody
     ): Call<TransactionResponse>
 
+    @PUT("transaction/{trxId}")
+    fun putTransaction(
+        @Header("Authorization") token: String,
+        @Path("trxId") trxId: String
+    ): Call<UserTransactionDetailResponse>
+
     @GET("transaction")
     fun getAllTransaction(
         @Header("Authorization") token: String
@@ -115,4 +121,13 @@ interface APIService {
         @Header("Authorization") token: String,
         @Path("laundryId") laundryId: String,
     ): Call<FavoriteDelResponse>
+
+    @FormUrlEncoded
+    @POST("laundry/{laundryId}/review")
+    fun postReviewLaundry(
+        @Header("Authorization") token: String,
+        @Path("laundryId") laundryId: String,
+        @Field("content") content: String,
+        @Field("rating") rating: Int
+    ): Call<ReviewPostResponse>
 }

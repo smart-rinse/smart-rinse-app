@@ -24,12 +24,13 @@ class HistoryFragment : Fragment() {
         super.onCreate(savedInstanceState)
         factory = ViewModelFactory.getInstance(requireContext())
         requireActivity().actionBar?.hide()
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,11 +39,6 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         isViewCreated = true
         loadData()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        isViewCreated = false
     }
 
     private fun loadData() {
@@ -61,7 +57,15 @@ class HistoryFragment : Fragment() {
                     }
 
                     historyViewModel.listDataHistory.observe(viewLifecycleOwner) { listData ->
-                        binding.rvHistory.adapter = HistoryAdapter(listData)
+                        if (listData.isNotEmpty()) {
+                            binding.imageNotFound.visibility = View.GONE
+                            binding.tvNotFound.visibility = View.GONE
+                            binding.rvHistory.adapter = HistoryAdapter(listData)
+                        } else {
+                            binding.imageNotFound.visibility = View.VISIBLE
+                            binding.tvNotFound.visibility = View.VISIBLE
+                            binding.rvHistory.adapter = null
+                        }
                     }
                     historyViewModel.isLoading.observe(viewLifecycleOwner) { load ->
                         showLoading(load)
@@ -81,5 +85,10 @@ class HistoryFragment : Fragment() {
             true -> binding.progressBar.visibility = View.VISIBLE
             false -> binding.progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        isViewCreated = false
     }
 }

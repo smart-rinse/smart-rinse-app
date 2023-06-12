@@ -69,9 +69,17 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         // Get Notification Login
         loginViewModel.toastText.observe(this@LoginActivity) {
             it.getContentIfNotHandled()?.let { toastText ->
-                Toast.makeText(
-                    this@LoginActivity, toastText, Toast.LENGTH_SHORT
-                ).show()
+                if(toastText == "null"){
+                    val toastTextNew = "Login Failed"
+                    Toast.makeText(
+                            this@LoginActivity, toastTextNew, Toast.LENGTH_SHORT
+                    ).show()
+                }else {
+                    Toast.makeText(
+                        this@LoginActivity, toastText, Toast.LENGTH_SHORT
+                    ).show()
+                }
+
             }
         }
 

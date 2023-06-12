@@ -119,6 +119,7 @@
     <string name="history_date">-</string>
     <string name="history_total">0</string>
     <string name="history_status">-</string>
+    <string name="history_sad">You don\'t have an order history</string>
 
     <!--  Favorite  -->
     <string name="favorite_label">Favorite Laundry</string>

@@ -231,65 +231,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tab_laundry"
                     tools:listitem="@layout/item_laundry_services" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_add_review"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/size_8dp"
-                    android:background="@color/white"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tab_laundry">
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/input_review_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/size_16dp"
-                        android:layout_marginEnd="16dp"
-                        android:hint="Write your review"
-                        app:boxBackgroundColor="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_review_input"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="start|top"
-                            android:inputType="textMultiLine"
-                            android:minHeight="100dp" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <RatingBar
-                        android:id="@+id/rating_input"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/size_8dp"
-                        android:numStars="5"
-                        android:progressTint="@color/sr_google_yellow"
-                        android:stepSize="1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/input_review_layout" />
-
-                    <Button
-                        android:id="@+id/btn_submit_review"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Submit"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rating_input" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_laundry_reviews"
                     android:layout_width="match_parent"
@@ -299,7 +240,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layout_add_review"
+                    app:layout_constraintTop_toBottomOf="@id/tab_laundry"
                     tools:listitem="@layout/item_laundry_reviews" />
 
                 <TextView

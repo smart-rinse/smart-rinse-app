@@ -49,6 +49,12 @@ class LaundryDetailViewModel (private val repository: LaundryRepository) : ViewM
         }
     }
 
+    fun putTransaction(token: String, trxId: String) {
+        viewModelScope.launch {
+            repository.putTransactionOrder(token, trxId)
+        }
+    }
+
     fun postFavorite(token: String, laundryId: String) {
         viewModelScope.launch {
             repository.postFavorite(token, laundryId)

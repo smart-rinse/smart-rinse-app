@@ -32,7 +32,13 @@ data class UserTransactionDetail(
 	val owner: String,
 
 	@field:SerializedName("rekening")
-	val rekening: Any,
+	val rekening: String,
+
+	@field:SerializedName("idlaundry")
+	val idlaundry: String,
+
+	@field:SerializedName("isReviewed")
+	val isReviewed: Boolean,
 
 	@field:SerializedName("transactionNumber")
 	val transactionNumber: String,
