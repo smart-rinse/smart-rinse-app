@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
@@ -138,6 +139,15 @@ class UserActivity : AppCompatActivity() {
                 userGender,
                 imageMultipart
             )
+        }
+
+        // Get Notification
+        settingViewModel.toastText.observe(this@UserActivity) {
+            it.getContentIfNotHandled()?.let { toastText ->
+                Toast.makeText(
+                    this@UserActivity, toastText, Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

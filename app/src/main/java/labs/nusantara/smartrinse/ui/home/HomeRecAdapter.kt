@@ -21,8 +21,8 @@ class HomeRecAdapter (private val listDataLaundry: List<LaundryRecomendationItem
         fun bind(data: LaundryRecomendationItem) {
             userBinding.apply {
                 tvLaundryName.text = data.namaLaundry
-                tvLaundryCity.text = "Kota : ${data.alamat}"
-                tvLaundryTime.text = "Hours : ${data.jamBuka} - ${data.jamTutup}"
+                tvLaundryCity.text = "Address : ${data.alamat}"
+                tvLaundryTime.text = "Operating Hours : ${data.jamBuka} - ${data.jamTutup}"
                 if (data.photo.isNotEmpty()){
                     Glide.with(itemView.context)
                         .load(data.photo)

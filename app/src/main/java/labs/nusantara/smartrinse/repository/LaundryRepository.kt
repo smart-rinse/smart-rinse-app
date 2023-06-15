@@ -418,7 +418,7 @@ class LaundryRepository private constructor(
         )
         val client =
             apiService.putProfUser(token, userId, userTelp, userCity, userGender, imageMultipart)
-
+        Log.d("Client: ", client.toString())
         client.enqueue(object : Callback<UserDetailResponse> {
             override fun onResponse(
                 call: Call<UserDetailResponse>,
