@@ -140,7 +140,8 @@
     <string name="invoice_tv_tgl_trx">DD-MM-YYYY</string>
     <string name="invoice_label_merchant">Merchant</string>
     <string name="invoice_tv_merchant">-</string>
-    <string name="invoice_label_rekening">Account</string>
+    <string name="invoice_label_rekening">Account Number</string>
+    <string name="invoice_label_bank">Bank Name</string>
     <string name="invoice_tv_rekening_number">-</string>
     <string name="invoice_label_detail_service">Detail Service</string>
     <string name="invoice_item_name">-</string>

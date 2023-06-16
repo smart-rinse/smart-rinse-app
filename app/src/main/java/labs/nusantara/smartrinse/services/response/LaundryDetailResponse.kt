@@ -37,6 +37,9 @@ data class Laundry(
 	@field:SerializedName("average_rating")
 	val averageRating: Double,
 
+	@field:SerializedName("telephone")
+	val telephone: String,
+
 	@field:SerializedName("tanggal_berdiri")
 	val tanggalBerdiri: String,
 
@@ -48,6 +51,9 @@ data class Laundry(
 
 	@field:SerializedName("jam_buka")
 	val jamBuka: String,
+
+	@field:SerializedName("bank")
+	val bank: String,
 
 	@field:SerializedName("reviews")
 	val reviews: List<ReviewsItem>,

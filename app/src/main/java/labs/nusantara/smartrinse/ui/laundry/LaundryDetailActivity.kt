@@ -271,7 +271,13 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
                 val roundedRating = (rating * 2) / 2.0f
                 ratingBar.rating = roundedRating
 
-                noWhatsapp = "62xxxxxxxxxxx"
+                if (data.telephone.isNotEmpty() && data.telephone.startsWith("62")) {
+                    noWhatsapp = data.telephone.substring(2)
+                }else if (data.telephone.isNotEmpty() && data.telephone.startsWith("0")) {
+                    noWhatsapp = data.telephone.substring(1)
+                } else{
+                    noWhatsapp = "xxxxxxxxxxx"
+                }
             }
         }
         // Check if the laundry is in favorite list
@@ -336,7 +342,7 @@ class LaundryDetailActivity : AppCompatActivity(), OnClickListener {
             }
 
             binding.btnChat.id -> {
-                val url = "https://api.whatsapp.com/send?phone=$noWhatsapp"
+                val url = "https://api.whatsapp.com/send?phone=62$noWhatsapp"
                 try {
                     val pm = v.context.packageManager
                     pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)

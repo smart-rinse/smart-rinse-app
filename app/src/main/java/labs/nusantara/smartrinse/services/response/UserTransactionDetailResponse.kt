@@ -31,6 +31,9 @@ data class UserTransactionDetail(
 	@field:SerializedName("owner")
 	val owner: String,
 
+	@field:SerializedName("bank")
+	val bank: String,
+
 	@field:SerializedName("rekening")
 	val rekening: String,
 

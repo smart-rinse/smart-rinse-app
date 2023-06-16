@@ -149,6 +149,7 @@ class InvoiceActivity : AppCompatActivity() {
                 binding.tvMerchantName.text = it.namaLaundry
                 binding.tvRekeningNumber.text = it.rekening ?: "N/A"
                 binding.tvTotalPrice.text = "Rp. ${it.totalCost}"
+                binding.tvBankName.text = it.bank
 
                 laundryId = it.idlaundry
             }
